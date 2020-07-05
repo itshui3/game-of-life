@@ -5,9 +5,15 @@ const Row = ({r}) => {
     const [rowString, setRowString] = useState("")
 
     useEffect(() => {
+        let count = 0;
         setRowString(r.reduce( (acc, e) => {
-            return acc + e.toString() + " "
-        }, " "))
+            count ++
+            if (count === 10) {
+                return acc + e.toString()
+            } else {
+                return acc + e.toString() + "____"
+            }
+        }, "  "))
     }, [r])
 
     return (
