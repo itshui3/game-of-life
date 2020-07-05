@@ -9,7 +9,7 @@ function Canvas({ grid }) {
         <>
             {
                 grid.map((r, i) => (
-                    <Row row={r} />
+                    <Row r={r} />
                 ))
             }
 
