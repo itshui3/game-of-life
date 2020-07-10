@@ -1,24 +1,29 @@
 import React, { useEffect, useState } from "react"
+import Cell from './Cell'
+import "./row.css"
 
-const Row = ({r}) => {
-
-    const [rowString, setRowString] = useState("")
-
-    useEffect(() => {
-        let count = 0;
-        setRowString(r.reduce( (acc, e) => {
-            count ++
-            if (count === 10) {
-                return acc + e.toString()
-            } else {
-                return acc + e.toString() + "____"
-            }
-        }, "  "))
-    }, [r])
+const Row = ({r, rId}) => {
+    const [cellIds, setCellIds] = useState(() => {
+        let ids = []
+        for (let i = 0; i < r.length; i++) {
+            ids.push(i)
+        }
+        return ids
+    })
 
     return (
         <>
-            <p>{rowString}</p>
+            <div className = "row">
+            {
+                r.map((c, i) => (
+                    <Cell 
+                        key={cellIds[i]} 
+                        id={parseInt(rId.toString() + cellIds[i].toString(), 10)} 
+                        c={c} 
+                    />
+                ))
+            }
+            </div>
         </>
     )
 }
