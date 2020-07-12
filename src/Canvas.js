@@ -1,3 +1,8 @@
+// Canvas
+// Top-Level Canvas API
+// Maps Rows into Row Component
+// Generates individual row ids[Needs double-checking(might need another engineer to look at)]
+
 import React, { useState } from 'react'
 import Row from './grid/Row.js'
 
