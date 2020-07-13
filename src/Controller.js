@@ -31,6 +31,8 @@ const Controller = (props) => {
 
         return grid
     })
+    // [ToDo: Write a custom hook to extrapolate grid building logic. useGrid will intake cols/rows and build a grid]
+
     // current is passed down to grid Components for rendering
     const [current, setCurrent] = useState(grid['1'])
 
@@ -46,10 +48,30 @@ const Controller = (props) => {
 
             default:
                 console.log('current reference did not match grids 1 or 2\nCurrent: ', current)
-                
         }
-        console.log(current)
     }
+    // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
+
+    useEffect(() => {
+// when current is bufferSwapped, I need neighbor detection
+        switch(current) {
+            case grid['1']:
+                // detectNeighbors(grid['2'])
+                // return NeighborsCountGrid
+                break;
+
+            case grid['2']:
+                // detectNeighbors(grid['1'])
+                // return NeighborsCountGrid
+                break;
+
+            default:
+                console.log('current reference did not match grids 1 or 2\nCurrent: ', current)
+        }
+
+    }, [current])
+    // I want grid to change without updating though
+    // Should I ignore the error message? 
 
     return (
         <>

@@ -7,7 +7,7 @@
 import React from "react"
 import ProgressButton from './ProgressButton.js'
 import './controls.css'
-import { control_styles } from './controls_inliners'
+import { control_styles } from './controls[inliners]/control_wrapper'
 
 const Controls = (props) => {
 
