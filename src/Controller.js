@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 import Canvas from "./Canvas.js"
 import Controls from './controls/Controls'
+import { detectNeighbors, resolveNextGen } from './helpers'
 
 const Controller = (props) => {
     // cols and rows logic mixed up
@@ -31,6 +32,8 @@ const Controller = (props) => {
 
         return grid
     })
+    // [ToDo: Write a custom hook to extrapolate grid building logic. useGrid will intake cols/rows and build a grid]
+
     // current is passed down to grid Components for rendering
     const [current, setCurrent] = useState(grid['1'])
 
@@ -46,10 +49,26 @@ const Controller = (props) => {
 
             default:
                 console.log('current reference did not match grids 1 or 2\nCurrent: ', current)
-                
         }
-        console.log(current)
     }
+    // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
+
+    useEffect(() => {
+// when current is bufferSwapped, I need neighbor detection
+        let currentGrid
+        if (current === grid['1']) { currentGrid = '1' }
+        if (current === grid['2']) { currentGrid = '2' }
+
+        let nCountedGrid = detectNeighbors(grid[current])
+        let nextGrid = resolveNextGen(current, nCountedGrid)
+        setGrid({
+            ...grid,
+            currentGrid: nextGrid
+        })
+
+    }, [current])
+    // I want grid to change without updating though
+    // Should I ignore the error message? 
 
     return (
         <>

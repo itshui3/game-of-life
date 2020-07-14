@@ -1,5 +1,5 @@
 const control_styles = {
-    maxWidth: window.innerWidth
+    maxWidth: window.innerWidth / 1.7
 }
 
 export {
