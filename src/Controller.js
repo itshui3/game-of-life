@@ -8,6 +8,7 @@
 import React, { useState, useEffect } from "react";
 import Canvas from "./Canvas.js"
 import Controls from './controls/Controls'
+import { detectNeighbors, resolveNextGen } from './helpers'
 
 const Controller = (props) => {
     // cols and rows logic mixed up
@@ -54,20 +55,16 @@ const Controller = (props) => {
 
     useEffect(() => {
 // when current is bufferSwapped, I need neighbor detection
-        switch(current) {
-            case grid['1']:
-                // detectNeighbors(grid['2'])
-                // return NeighborsCountGrid
-                break;
+        let currentGrid
+        if (current === grid['1']) { currentGrid = '1' }
+        if (current === grid['2']) { currentGrid = '2' }
 
-            case grid['2']:
-                // detectNeighbors(grid['1'])
-                // return NeighborsCountGrid
-                break;
-
-            default:
-                console.log('current reference did not match grids 1 or 2\nCurrent: ', current)
-        }
+        let nCountedGrid = detectNeighbors(grid[current])
+        let nextGrid = resolveNextGen(current, nCountedGrid)
+        setGrid({
+            ...grid,
+            currentGrid: nextGrid
+        })
 
     }, [current])
     // I want grid to change without updating though
