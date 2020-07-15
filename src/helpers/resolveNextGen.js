@@ -3,6 +3,7 @@
 function resolveNextGen(grid, countGrid) {
     // nextGrid needs to generate a full array
     // do in a function
+    if (!grid || !countGrid) { return }
     let nextGrid = new Array(grid.length)
     for (let i = 0; i < nextGrid.length; i++) {
         nextGrid[i] = new Array(grid[0].length)
@@ -10,7 +11,7 @@ function resolveNextGen(grid, countGrid) {
 
     // 1. Iterate through the grid, checking: 
     for (let r = 0; r < grid.length; r++) {
-        
+
         for (let c = 0; c < grid[0].length; c++) {
             // if prevGrid cell is living
             switch(countGrid[r][c]) {

@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from "react"
 import "./cell.css"
 
-const Cell = ({c, id}) => {
+const Cell = ({c, id, rowId, lifeSwitch}) => {
     const [life, setlife] = useState()
 
     useEffect(() => {
@@ -17,6 +17,7 @@ const Cell = ({c, id}) => {
             <div 
                 id = {id}
                 className = {`cell ${life ? 'living' : 'dead'}`}
+                onClick = { () => lifeSwitch(rowId, id) }
             ></div>
         </>
     )

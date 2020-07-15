@@ -6,10 +6,11 @@
 
 import React from "react"
 import ProgressButton from './ProgressButton.js'
+import ResetButton from './ResetButton.js'
 import './controls.css'
 import { control_styles } from './controls[inliners]/control_wrapper'
 
-const Controls = (props) => {
+const Controls = ({swapNextBuffer, reset}) => {
 
     return (
         <>
@@ -18,7 +19,10 @@ const Controls = (props) => {
                 style={control_styles}
             >
                 <ProgressButton 
-                    swapNextBuffer={props.swapNextBuffer} 
+                    swapNextBuffer={swapNextBuffer} 
+                />
+                <ResetButton
+                    reset={reset}
                 />
             </div>
         </>

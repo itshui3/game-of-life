@@ -2,30 +2,37 @@
 // Maps individual Cells into Cell Component
 // Generates individual cell ids[Need double-checking(might need another engineer)]
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from 'react'
 import Cell from './Cell'
-import "./row.css"
+import './row.css'
 
-const Row = ({r, rId}) => {
-    const [cellIds, setCellIds] = useState(() => {
+const Row = ({r, rId, lifeSwitch}) => {
+    const [cellIds, setCellIds] = useState()
+
+    useEffect(() => {
+        if (r === undefined) { return }
+
         let ids = []
         for (let i = 0; i < r.length; i++) {
             ids.push(i)
         }
-        return ids
-    })
+        setCellIds(ids)
+
+    }, [r])
 
     return (
         <>
-            <div className = "row">
+            <div className = 'row'>
             {
-                r.map((c, i) => (
+                r !== undefined && cellIds ? r.map((c, i) => (
                     <Cell 
+                        rowId={rId}
                         key={cellIds[i]} 
-                        id={parseInt(rId.toString() + cellIds[i].toString(), 10)} 
+                        id={cellIds[i]} 
                         c={c} 
+                        lifeSwitch={lifeSwitch}
                     />
-                ))
+                )) : null
             }
             </div>
         </>

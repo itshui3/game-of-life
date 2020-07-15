@@ -65,7 +65,7 @@ let desiredResult = [
 // }
 
 function detectNeighbors(grid) {
-
+    if (!grid) { return }
     let columns = buildCols(grid[0].length)
 // nMatrix cells contain the number of neighbors that are alive
     let nMatrix = buildMatrix(grid.length, columns)
