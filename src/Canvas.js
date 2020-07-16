@@ -8,34 +8,26 @@ import Row from './grid/Row.js'
 
 function Canvas({ grid, lifeSwitch }) {
 
-    const [rowIds, setRowIds] = useState()
+    const [rows, setRows] = useState([])
 
-    // why is this useEffect only triggering once? 
     useEffect(() => {
-
-        if (grid === undefined) { return }
-
-        let ids = []
-        for (let i = 0; i < grid.length; i++) {
-            ids.push(i)
-        }
-        setRowIds(ids)
-
+        if (grid === undefined) { return } 
+        setRows(grid)
     }, [grid])
 
     return (
         <>
             <div className='canvas_wrapper'>
             {
-                grid && rowIds ? grid.map((r, i) => (
+                rows.length && grid.map((r, i) => (
                     <Row 
                         className = "row"
-                        key = {rowIds[i]} 
-                        rId = {rowIds[i]} 
+                        key = {i} 
+                        rId = {i} 
                         r = {r} 
                         lifeSwitch = {lifeSwitch}
                     />
-                )) : null
+                ))
             }
             </div>
         </>
