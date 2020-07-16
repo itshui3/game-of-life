@@ -7,32 +7,26 @@ import Cell from './Cell'
 import './row.css'
 
 const Row = ({r, rId, lifeSwitch}) => {
-    const [cellIds, setCellIds] = useState()
+    const [cells, setCells] = useState([])
 
     useEffect(() => {
         if (r === undefined) { return }
-
-        let ids = []
-        for (let i = 0; i < r.length; i++) {
-            ids.push(i)
-        }
-        setCellIds(ids)
-
+        setCells(r)
     }, [r])
 
     return (
         <>
             <div className = 'row'>
             {
-                r !== undefined && cellIds ? r.map((c, i) => (
+                cells.length && cells.map((c, i) => (
                     <Cell 
                         rowId={rId}
-                        key={cellIds[i]} 
-                        id={cellIds[i]} 
+                        key={i} 
+                        id={i} 
                         c={c} 
                         lifeSwitch={lifeSwitch}
                     />
-                )) : null
+                ))
             }
             </div>
         </>

@@ -40,14 +40,16 @@ const Controller = (props) => {
     // [ToDo: Write a custom hook to extrapolate grid building logic. useGrid will intake cols/rows and build a grid]
 
     // current is passed down to grid Components for rendering
-    const [current, setCurrent] = useState()
+    const [current, setCurrent] = useState([])
 
     useEffect(() => { 
         setCurrent(grid['1']) 
     }, [grid])
 
-    // define a function that swaps out current
+
     const swapNextBuffer = () => {
+// swaps out current with the other buffer
+// currently only works onClick of nextGen[actually not even]
         switch(current) {
             case grid['1']:
                 setCurrent(grid['2'])
@@ -62,13 +64,8 @@ const Controller = (props) => {
     }
 
     const lifeSwitch = (rowId, cellId) => {
-        // If I adjust current, I also need to make sure that the correlating grid is also mutated
-        // I can assume that the referential nature of arrays allows me to directly mutate by reference
-        // however, this may not be good practice
-        // 1] if it doesn't update, that kinda fixes it for me because then the useEffect immutability enforces having to adjust both
-        // 2] if it does update, but I write a manual update/or comments for the grid itself, that may suffice too
-        // first-step: update current, determine if grid updates too
-
+// modifies a single cell in a grid to the opposite state of living/dead
+// how can I simplify this logic for readability? 
         let switchedCell
 
         if (current[rowId][cellId] === 1) { switchedCell = 0 }
@@ -80,7 +77,7 @@ const Controller = (props) => {
         preSlice.push(modRow)
 
         let newGrid = preSlice.concat(postSlice)
-        console.log('preSwitchgrid', grid)
+
         let griddex
         if (current === grid['1']) { griddex = '1' }
         else if (current === grid['2']) { griddex = '2' }
@@ -89,9 +86,7 @@ const Controller = (props) => {
             ...grid,
             [griddex]: newGrid
         })
-        console.log('postSwitchgrid', grid)
 
-        // how could I modify a single cell in a matrix grid? 
     }
 
     const reset = () => {
@@ -136,9 +131,7 @@ const Controller = (props) => {
 //     }, [current, grid])
     // I want grid to change without updating though
     // Should I ignore the error message? 
-    useEffect(() => {
-        console.log(current)
-    }, [current])
+
     return (
         <>
             <div 
