@@ -81,7 +81,7 @@ const Controller = (props) => {
         let griddex
         if (current === grid['1']) { griddex = '1' }
         else if (current === grid['2']) { griddex = '2' }
-        setCurrent(newGrid)
+        // setCurrent(newGrid)
         setGrid({
             ...grid,
             [griddex]: newGrid
@@ -112,23 +112,28 @@ const Controller = (props) => {
     }
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
 
-//     useEffect(() => {
-// // when current is bufferSwapped, I need neighbor detection
-//         let nextGrid
-//         if (current === grid['1']) { nextGrid = '2' }
-//         if (current === grid['2']) { nextGrid = '1' }
-// // if I add grid as a dependency
-// // what's that for, even? I'm not waiting for it to change, I AM the change
-// // 
+    useEffect(() => {
+// when current is bufferSwapped, I need neighbor detection
+        let nextGrid
+        if (current === grid['1']) { nextGrid = '2' }
+        if (current === grid['2']) { nextGrid = '1' }
+// if I add grid as a dependency
+// what's that for, even? I'm not waiting for it to change, I AM the change
+// 
 
-//         let nCountedGrid = detectNeighbors(grid[current])
-//         let nextGenGrid = resolveNextGen(current, nCountedGrid)
-//         setGrid({
-//             ...grid,
-//             [nextGrid]: nextGenGrid
-//         })
+        let nCountedGrid = detectNeighbors(grid[nextGrid])
+        let nextGenGrid = resolveNextGen(current, nCountedGrid)
+        console.log(nextGenGrid)
+        console.log({
+            ...grid,
+            [nextGrid]: nextGenGrid
+        })
+        setGrid({
+            ...grid,
+            [nextGrid]: nextGenGrid
+        })
 
-//     }, [current, grid])
+    }, [current])
     // I want grid to change without updating though
     // Should I ignore the error message? 
 

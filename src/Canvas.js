@@ -19,7 +19,7 @@ function Canvas({ grid, lifeSwitch }) {
         <>
             <div className='canvas_wrapper'>
             {
-                rows.length && grid.map((r, i) => (
+                rows.length && rows.map((r, i) => (
                     <Row 
                         className = "row"
                         key = {i} 
