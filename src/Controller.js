@@ -14,12 +14,10 @@ import { detectNeighbors, resolveNextGen } from './helpers'
 const Controller = (props) => {
     // cols and rows logic mixed up
     // build based on innerWidth/innerHeight of window
-    const [cols, setCols] = useState(15)
-    const [rows, setRows] = useState(15)
+    const [cols, setCols] = useState(20)
+    const [rows, setRows] = useState(20)
     // why does htis break if I take out the curly brackets? 
-    const [grid, setGrid] = useState({})
-
-    useEffect(() => {
+    const [grid, setGrid] = useState(() => {
         let generatedGrid = {
             '1': [],
             '2': []
@@ -35,17 +33,36 @@ const Controller = (props) => {
         for (let i = 0; i < rows; i++) { generatedGrid['1'].push(row) }
         for (let i = 0; i < rows; i++) { generatedGrid['2'].push(row) }
 
-        setGrid(generatedGrid)
-    }, [cols, rows])
-    // [ToDo: Write a custom hook to extrapolate grid building logic. useGrid will intake cols/rows and build a grid]
+        return generatedGrid
+    })
+    const [current, setCurrent] = useState(grid['1'])
 
-    // current is passed down to grid Components for rendering
-    const [current, setCurrent] = useState([])
+        // bufferSwapEffect: activates when current is changed
+    useEffect(() => {
+        if (!Object.keys(grid).length) { return }
+        let curGrid
+        let nextGrid
+        if (current === grid['1']) { 
+            curGrid = '1'
+            nextGrid = '2' 
+        }
+        if (current === grid['2']) { 
+            curGrid = '2'
+            nextGrid = '1' 
+        }
 
-    useEffect(() => { 
-        setCurrent(grid['1']) 
-    }, [grid])
+        let nCountedGrid = detectNeighbors(grid[curGrid])
+        let nextGenGrid = resolveNextGen(current, nCountedGrid)
 
+        setGrid({
+            ...grid,
+            [nextGrid]: nextGenGrid
+        })
+        // cases:
+        // 1] swapNextBuffer
+        // 2] lifeSwitch
+        // 3] reset
+    }, [current])
 
     const swapNextBuffer = () => {
 // swaps out current with the other buffer
@@ -66,6 +83,7 @@ const Controller = (props) => {
     const lifeSwitch = (rowId, cellId) => {
 // modifies a single cell in a grid to the opposite state of living/dead
 // how can I simplify this logic for readability? 
+
         let switchedCell
 
         if (current[rowId][cellId] === 1) { switchedCell = 0 }
@@ -86,6 +104,7 @@ const Controller = (props) => {
             ...grid,
             [griddex]: newGrid
         })
+        setCurrent(newGrid)
 
     }
 
@@ -111,31 +130,6 @@ const Controller = (props) => {
 
     }
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
-
-    useEffect(() => {
-// when current is bufferSwapped, I need neighbor detection
-        let nextGrid
-        if (current === grid['1']) { nextGrid = '2' }
-        if (current === grid['2']) { nextGrid = '1' }
-// if I add grid as a dependency
-// what's that for, even? I'm not waiting for it to change, I AM the change
-// 
-
-        let nCountedGrid = detectNeighbors(grid[nextGrid])
-        let nextGenGrid = resolveNextGen(current, nCountedGrid)
-        console.log(nextGenGrid)
-        console.log({
-            ...grid,
-            [nextGrid]: nextGenGrid
-        })
-        setGrid({
-            ...grid,
-            [nextGrid]: nextGenGrid
-        })
-
-    }, [current])
-    // I want grid to change without updating though
-    // Should I ignore the error message? 
 
     return (
         <>
