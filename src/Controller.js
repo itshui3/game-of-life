@@ -25,8 +25,6 @@ const Controller = (props) => {
 
         let row = []
         for (let i = 0; i < cols; i++) {
-            // if (i % 2 === 0) { row.push(1) } 
-            // else { row.push(0) }
             row.push(0)
         }
 
@@ -35,24 +33,23 @@ const Controller = (props) => {
 
         return generatedGrid
     })
-    const [current, setCurrent] = useState(grid['1'])
+    const [current, setCurrent] = useState('1')
+    const [progress, setProgress] = useState(false)
 
         // bufferSwapEffect: activates when current is changed
     useEffect(() => {
-        if (!Object.keys(grid).length) { return }
-        let curGrid
+
         let nextGrid
-        if (current === grid['1']) { 
-            curGrid = '1'
+        if (current === '1') { 
             nextGrid = '2' 
         }
-        if (current === grid['2']) { 
-            curGrid = '2'
+        if (current === '2') { 
             nextGrid = '1' 
         }
 
-        let nCountedGrid = detectNeighbors(grid[curGrid])
-        let nextGenGrid = resolveNextGen(current, nCountedGrid)
+        let nCountedGrid = detectNeighbors(grid[current])
+        console.log('counted', nCountedGrid)
+        let nextGenGrid = resolveNextGen(grid[current], nCountedGrid)
 
         setGrid({
             ...grid,
@@ -62,17 +59,32 @@ const Controller = (props) => {
         // 1] swapNextBuffer
         // 2] lifeSwitch
         // 3] reset
-    }, [current])
+    }, [grid[current]])
+
+    useEffect(() => {
+
+        console.log(current)
+        swapNextBuffer()
+        // let progression
+        // if (progress) {
+        //     progression = setInterval(() => {
+        //         swapNextBuffer()
+        //     }, 1000)
+        // } else {
+        //     clearInterval(progression)
+        // }
+
+    }, [progress])
 
     const swapNextBuffer = () => {
 // swaps out current with the other buffer
 // currently only works onClick of nextGen[actually not even]
         switch(current) {
-            case grid['1']:
-                setCurrent(grid['2'])
+            case '1':
+                setCurrent('2')
                 break;
-            case grid['2']:
-                setCurrent(grid['1'])
+            case '2':
+                setCurrent('1')
                 break;
 
             default:
@@ -86,25 +98,24 @@ const Controller = (props) => {
 
         let switchedCell
 
-        if (current[rowId][cellId] === 1) { switchedCell = 0 }
-        else if (current[rowId][cellId] === 0) { switchedCell = 1 }
+        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
+        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
 
-        let preSlice = current.slice(0, rowId)
-        let modRow = current[rowId].slice(0, cellId).concat([switchedCell].concat(current[rowId].slice(cellId + 1)))
-        let postSlice = current.slice(rowId + 1)
+        let preSlice = grid[current].slice(0, rowId)
+        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
+        let postSlice = grid[current].slice(rowId + 1)
         preSlice.push(modRow)
 
         let newGrid = preSlice.concat(postSlice)
 
-        let griddex
-        if (current === grid['1']) { griddex = '1' }
-        else if (current === grid['2']) { griddex = '2' }
         // setCurrent(newGrid)
         setGrid({
             ...grid,
-            [griddex]: newGrid
+            [current]: newGrid
         })
-        setCurrent(newGrid)
+        // since I'm not returning a different ref for current
+        // it does not trigger nextGen
+        setCurrent(current)
 
     }
 
@@ -126,10 +137,14 @@ const Controller = (props) => {
         for (let i = 0; i < rows; i++) { grid['2'].push(row) }
 
         setGrid(grid)
-        setCurrent(grid['1'])
+        setCurrent('1')
 
     }
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
+
+    const startProgress = () => {
+        setProgress(!progress)
+    }
 
     return (
         <>
@@ -138,10 +153,10 @@ const Controller = (props) => {
                 style={{display: 'flex', flexDirection: 'column'}}
             >
                 <ErrorBoundary>
-                    <Canvas grid={current} lifeSwitch={lifeSwitch} />
+                    <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <Controls swapNextBuffer={swapNextBuffer} reset={reset} />
+                    <Controls swapNextBuffer={swapNextBuffer} reset={reset} startProgress={startProgress} />
                 </ErrorBoundary>
             </div>
         </>
