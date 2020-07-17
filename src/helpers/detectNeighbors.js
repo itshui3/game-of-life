@@ -66,6 +66,8 @@ let desiredResult = [
 
 function detectNeighbors(grid) {
     if (!grid) { return }
+    if (!grid.length) { return }
+
     let columns = buildCols(grid[0].length)
 // nMatrix cells contain the number of neighbors that are alive
     let nMatrix = buildMatrix(grid.length, columns)
@@ -77,7 +79,7 @@ function detectNeighbors(grid) {
             let cellVal = grid[r][c]
 
             if (cellVal) {
-                nMatrix[r][c] = countLiving(r, c, grid)
+                countLiving(r, c, grid, nMatrix)
             }
         }
     }
@@ -85,19 +87,25 @@ function detectNeighbors(grid) {
     return nMatrix
 }
 
-function countLiving(row, col, grid) {
-    let count = 0
+// mutates nMatrix
+function countLiving(row, col, grid, nMatrix) {
+
+    // let count = 0
 
     for (let r = -1; r <= 1; r++) {
         for (let c = -1; c <= 1; c++) {
             if (r === 0 && c === 0) { continue }
-            if (grid[row + r][col + c] === 1) {
-                count++
-            }
+
+                let row_conditions = r + row > -1 && r + row < grid.length
+                let col_conditions = c + col > -1 && c + row < grid[0].length
+                if (row_conditions && col_conditions) {
+                    nMatrix[r + row][c + col]++
+
+                }
         }
     }
 
-    return count
+    // return count
 }
 
 function buildCols(gridZeroLength) {

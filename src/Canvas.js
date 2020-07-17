@@ -12,6 +12,7 @@ function Canvas({ grid, lifeSwitch }) {
 
     useEffect(() => {
         if (grid === undefined) { return } 
+        if (!grid.length) { return }
         setRows(grid)
     }, [grid])
 
@@ -19,7 +20,7 @@ function Canvas({ grid, lifeSwitch }) {
         <>
             <div className='canvas_wrapper'>
             {
-                rows.length && rows.map((r, i) => (
+                rows.length ? rows.map((r, i) => (
                     <Row 
                         className = "row"
                         key = {i} 
@@ -27,7 +28,7 @@ function Canvas({ grid, lifeSwitch }) {
                         r = {r} 
                         lifeSwitch = {lifeSwitch}
                     />
-                ))
+                )) : null
             }
             </div>
         </>
