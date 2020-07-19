@@ -5,8 +5,8 @@
 // [ToDo] Buffer Swap Logic
 // First-Step: A better first step may be to develop an on-click next mechanism that progresses generations
 
-import React, { useState, useEffect } from "react";
-import Canvas from "./Canvas.js"
+import React, { useState, useEffect } from 'react';
+import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 import ErrorBoundary from './helpers/ErrorBoundary'
 import { detectNeighbors, resolveNextGen } from './helpers'
@@ -34,7 +34,6 @@ const Controller = (props) => {
         return generatedGrid
     })
     const [current, setCurrent] = useState('1')
-    const [progress, setProgress] = useState(false)
 
         // bufferSwapEffect: activates when current is changed
     useEffect(() => {
@@ -48,7 +47,6 @@ const Controller = (props) => {
         }
 
         let nCountedGrid = detectNeighbors(grid[current])
-        console.log('counted', nCountedGrid)
         let nextGenGrid = resolveNextGen(grid[current], nCountedGrid)
 
         setGrid({
@@ -61,24 +59,10 @@ const Controller = (props) => {
         // 3] reset
     }, [grid[current]])
 
-    useEffect(() => {
-
-        console.log(current)
-        swapNextBuffer()
-        // let progression
-        // if (progress) {
-        //     progression = setInterval(() => {
-        //         swapNextBuffer()
-        //     }, 1000)
-        // } else {
-        //     clearInterval(progression)
-        // }
-
-    }, [progress])
-
     const swapNextBuffer = () => {
 // swaps out current with the other buffer
 // currently only works onClick of nextGen[actually not even]
+        console.log('swapNextBuffer in', current)
         switch(current) {
             case '1':
                 setCurrent('2')
@@ -142,9 +126,48 @@ const Controller = (props) => {
     }
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
 
+    const [progress, setProgress] = useState(false)
+    const [progressStopper, setProgressStopper] = useState()
+
     const startProgress = () => {
-        setProgress(!progress)
+
+        switch (progress) {
+            case false:
+                setProgress(true)
+                break
+            case true:
+                console.log('prog stopper', progressStopper)
+                progressStopper()
+                setProgress(false)
+                break
+            default:
+// progress var stores a fn that modifies a closed variable viewable 
+// by setTimeout's recurse stack
+                setProgress(false)
+        }
     }
+
+    useEffect(() => {
+        if (progress === false) { return }
+
+        let continueProgress = true
+
+        function stopProgress() {
+            continueProgress = !continueProgress
+        }
+
+        setProgressStopper(stopProgress)
+
+        function reProgress() {
+            if (!continueProgress) { return }
+            setTimeout(reProgress, 1000)
+            swapNextBuffer()
+            console.log('hello world')
+        }
+
+        reProgress()
+
+    }, [progress])
 
     return (
         <>
