@@ -3,13 +3,13 @@
 
 import React from "react"
 
-const ProgressButton = ({swapNextBuffer}) => {
+const ProgressButton = ({swapNextBuffer, cur}) => {
 
     return (
         <>
             <button 
                 className='progress-button'
-                onClick={ swapNextBuffer }
+                onClick={ () => swapNextBuffer(cur) }
             >Next Generation</button>
         </>
     )
