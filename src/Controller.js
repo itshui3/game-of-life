@@ -100,7 +100,10 @@ const Controller = (props) => {
     }
 
     const reset = () => {
-        stopper.stop()
+        if ( !(Object.entries(stopper).length === 0) ) {
+            stopper.stop()
+            setProgress(false)
+        }
         
         let grid = {
             '1': [],
@@ -133,8 +136,10 @@ const Controller = (props) => {
                 setProgress(true)
                 break
             default:
-                stopper.stop()
-                setProgress(false)
+                if ( !(Object.entries(stopper).length === 0) ) { 
+                    stopper.stop() 
+                    setProgress(false)
+                }
 
         }
     }
@@ -146,6 +151,7 @@ const Controller = (props) => {
 
         function stopProgress() {
             continueProgress = !continueProgress
+            setStopper({})
         }
 
         setStopper({
