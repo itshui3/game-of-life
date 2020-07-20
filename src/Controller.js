@@ -59,11 +59,12 @@ const Controller = (props) => {
         // 3] reset
     }, [grid[current]])
 
-    const swapNextBuffer = () => {
+    const swapNextBuffer = (cur) => {
 // swaps out current with the other buffer
 // currently only works onClick of nextGen[actually not even]
         console.log('swapNextBuffer in', current)
-        switch(current) {
+        console.log('cur', cur)
+        switch(cur) {
             case '1':
                 setCurrent('2')
                 break;
@@ -72,7 +73,7 @@ const Controller = (props) => {
                 break;
 
             default:
-                console.log('current reference did not match grids 1 or 2\nCurrent: ', current)
+                console.log('current reference did not match grids 1 or 2\nCurrent: ', cur)
         }
     }
 
@@ -127,7 +128,7 @@ const Controller = (props) => {
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
 
     const [progress, setProgress] = useState(false)
-    const [progressStopper, setProgressStopper] = useState()
+    const [stopper, setStopper] = useState({})
 
     const startProgress = () => {
 
@@ -135,20 +136,22 @@ const Controller = (props) => {
             case false:
                 setProgress(true)
                 break
-            case true:
-                console.log('prog stopper', progressStopper)
-                progressStopper()
-                setProgress(false)
-                break
             default:
+                stopper.stop()
+                console.log('prog', progress)
+                console.log('stopper', stopper)
+                // progress()
+                setProgress(false)
+
+
 // progress var stores a fn that modifies a closed variable viewable 
 // by setTimeout's recurse stack
-                setProgress(false)
         }
     }
 
     useEffect(() => {
-        if (progress === false) { return }
+        console.log('progress', progress)
+        if (progress !== true) { return }
 
         let continueProgress = true
 
@@ -156,15 +159,28 @@ const Controller = (props) => {
             continueProgress = !continueProgress
         }
 
-        setProgressStopper(stopProgress)
+        setStopper({
+            stop: stopProgress
+        })
+
+        let cur = current
 
         function reProgress() {
             if (!continueProgress) { return }
             setTimeout(reProgress, 1000)
-            swapNextBuffer()
-            console.log('hello world')
+            swapNextBuffer(cur)
+            switch (cur) {
+                case '1':
+                    cur = '2'
+                    break
+                case '2':
+                    cur = '1'
+                    break
+                default:
+                    console.log('cur is neither 1 or 2 somehow')
+            }
+            console.log('recursing...')
         }
-
         reProgress()
 
     }, [progress])
@@ -179,7 +195,7 @@ const Controller = (props) => {
                     <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <Controls swapNextBuffer={swapNextBuffer} reset={reset} startProgress={startProgress} />
+                    <Controls cur={current} swapNextBuffer={swapNextBuffer} reset={reset} startProgress={startProgress} />
                 </ErrorBoundary>
             </div>
         </>

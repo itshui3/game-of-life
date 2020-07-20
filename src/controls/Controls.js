@@ -11,7 +11,7 @@ import SetIntervalButton from './SetIntervalButton.js'
 import './controls.css'
 import { control_styles } from './controls[inliners]/control_wrapper'
 
-const Controls = ({swapNextBuffer, reset, startProgress}) => {
+const Controls = ({swapNextBuffer, reset, startProgress, cur}) => {
 
     return (
         <>
@@ -21,6 +21,7 @@ const Controls = ({swapNextBuffer, reset, startProgress}) => {
             >
                 <ProgressButton 
                     swapNextBuffer={swapNextBuffer} 
+                    cur={cur}
                 />
                 <ResetButton
                     reset={reset}
