@@ -62,8 +62,6 @@ const Controller = (props) => {
     const swapNextBuffer = (cur) => {
 // swaps out current with the other buffer
 // currently only works onClick of nextGen[actually not even]
-        console.log('swapNextBuffer in', current)
-        console.log('cur', cur)
         switch(cur) {
             case '1':
                 setCurrent('2')
@@ -93,19 +91,17 @@ const Controller = (props) => {
 
         let newGrid = preSlice.concat(postSlice)
 
-        // setCurrent(newGrid)
         setGrid({
             ...grid,
             [current]: newGrid
         })
-        // since I'm not returning a different ref for current
-        // it does not trigger nextGen
         setCurrent(current)
 
     }
 
     const reset = () => {
-
+        stopper.stop()
+        
         let grid = {
             '1': [],
             '2': []
@@ -138,19 +134,12 @@ const Controller = (props) => {
                 break
             default:
                 stopper.stop()
-                console.log('prog', progress)
-                console.log('stopper', stopper)
-                // progress()
                 setProgress(false)
 
-
-// progress var stores a fn that modifies a closed variable viewable 
-// by setTimeout's recurse stack
         }
     }
 
     useEffect(() => {
-        console.log('progress', progress)
         if (progress !== true) { return }
 
         let continueProgress = true
@@ -179,7 +168,6 @@ const Controller = (props) => {
                 default:
                     console.log('cur is neither 1 or 2 somehow')
             }
-            console.log('recursing...')
         }
         reProgress()
 
