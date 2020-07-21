@@ -75,6 +75,11 @@ const Controller = (props) => {
         }
     }
 
+    const nextBuffer = () => {
+        if (!progress) { swapNextBuffer(current) }
+        else { console.log('cannot perform manual nextGen while progression occurring')}
+    }
+
     const lifeSwitch = (rowId, cellId) => {
 // modifies a single cell in a grid to the opposite state of living/dead
 // how can I simplify this logic for readability? 
@@ -100,10 +105,7 @@ const Controller = (props) => {
     }
 
     const reset = () => {
-        if ( !(Object.entries(stopper).length === 0) ) {
-            stopper.stop()
-            setProgress(false)
-        }
+        if ( !(Object.entries(stopper).length === 0) ) { stopper.stop() }
         
         let grid = {
             '1': [],
@@ -126,6 +128,8 @@ const Controller = (props) => {
     }
     // [ToDo: Write a custom hook that encorporates swapNextBuffer as a method returned by the useBuffer hook]
 
+// I really don't want to be using two useStates for this. 
+// Find a way to encapsulate all this shit into a custom hook
     const [progress, setProgress] = useState(false)
     const [stopper, setStopper] = useState({})
 
@@ -138,7 +142,6 @@ const Controller = (props) => {
             default:
                 if ( !(Object.entries(stopper).length === 0) ) { 
                     stopper.stop() 
-                    setProgress(false)
                 }
 
         }
@@ -152,6 +155,7 @@ const Controller = (props) => {
         function stopProgress() {
             continueProgress = !continueProgress
             setStopper({})
+            setProgress(false)
         }
 
         setStopper({
@@ -189,7 +193,7 @@ const Controller = (props) => {
                     <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
                 </ErrorBoundary>
                 <ErrorBoundary>
-                    <Controls cur={current} swapNextBuffer={swapNextBuffer} reset={reset} startProgress={startProgress} />
+                    <Controls cur={current} nextBuffer={nextBuffer} reset={reset} startProgress={startProgress} />
                 </ErrorBoundary>
             </div>
         </>
