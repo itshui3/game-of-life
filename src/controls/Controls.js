@@ -21,7 +21,6 @@ const Controls = ({nextBuffer, reset, startProgress, cur}) => {
             >
                 <ProgressButton 
                     nextBuffer={nextBuffer} 
-                    cur={cur}
                 />
                 <ResetButton
                     reset={reset}
