@@ -24,24 +24,29 @@ function detectNeighbors(grid) {
 
 // mutates nMatrix
 function countLiving(row, col, grid, nMatrix) {
-    if (row === grid.length - 1) {
-// console.log the nMatrix
-    }
+
+    console.log(
+        `countLiving in: nMatrix`,
+        nMatrix)
+
     for (let r = -1; r <= 1; r++) {
         for (let c = -1; c <= 1; c++) {
             if (r === 0 && c === 0) { continue }
 
-                let row_conditions = r + row > -1 && r + row < grid.length
-                let col_conditions = c + col > -1 && c + row < grid[0].length
-                if (row_conditions && col_conditions) {
+                let countR = r + row
+                let countC = c + col
+                if ( (countR < grid.length) && (countR > -1) &&
+                    (countC < grid[0].length) && (countC > -1)
+                ) {
                     nMatrix[r + row][c + col]++
-
                 }
         }
     }
-    if (row === grid.length - 1) {
-// console.log the nMatrix
-    }
+
+    console.log(
+        `countLiving out: nMatrix`,
+        nMatrix)
+
 }
 
 function buildCols(gridZeroLength) {
