@@ -5,11 +5,10 @@
 // [ToDo] Buffer Swap Logic
 // First-Step: A better first step may be to develop an on-click next mechanism that progresses generations
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 import ErrorBoundary from './helpers/ErrorBoundary'
-import { detectNeighbors, resolveNextGen } from './helpers'
 import { useBufferSystem } from './hooks/useBufferSystem.js'
 
 const Controller = (props) => {

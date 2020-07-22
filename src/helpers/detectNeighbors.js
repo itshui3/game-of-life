@@ -25,10 +25,6 @@ function detectNeighbors(grid) {
 // mutates nMatrix
 function countLiving(row, col, grid, nMatrix) {
 
-    console.log(
-        `countLiving in: nMatrix`,
-        nMatrix)
-
     for (let r = -1; r <= 1; r++) {
         for (let c = -1; c <= 1; c++) {
             if (r === 0 && c === 0) { continue }
@@ -42,10 +38,6 @@ function countLiving(row, col, grid, nMatrix) {
                 }
         }
     }
-
-    console.log(
-        `countLiving out: nMatrix`,
-        nMatrix)
 
 }
 
