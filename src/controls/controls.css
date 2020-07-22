@@ -7,7 +7,7 @@ used as a wrapper for all the controls/buttons */
     flex-direction: row;
     justify-content: flex-start;
     text-align: left;
-    margin: 50px;
+    margin: 50px auto;
     padding: 25px;
     border: 2px solid black;
     border-radius: 5px;
