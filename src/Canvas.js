@@ -19,7 +19,7 @@ function Canvas({ grid, lifeSwitch }) {
 
     return (
         <>
-            <div style={{ 
+            <div style={{
                 maxWidth: window.innerWidth / 1.5,
                 margin: '0 auto',
                 border: '1px solid black',
@@ -27,7 +27,7 @@ function Canvas({ grid, lifeSwitch }) {
             }}>
             {
                 rows.length ? rows.map((r, i) => (
-                    <Row 
+                    <Row
                         className = "row"
                         key = {i} 
                         rId = {i} 
