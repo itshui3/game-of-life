@@ -19,12 +19,11 @@ const Controller = (props) => {
                 // className='gol-wrapper'
                 // style={{display: 'flex', flexDirection: 'column'}}
             >
-                <ErrorBoundary>
-                    <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
-                </ErrorBoundary>
-                <ErrorBoundary>
-                    <Controls nextBuffer={nextBuffer} reset={reset} startProgress={startProgress} />
-                </ErrorBoundary>
+
+                <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
+
+                <Controls nextBuffer={nextBuffer} reset={reset} startProgress={startProgress} />
+
             </div>
         </>
     )
