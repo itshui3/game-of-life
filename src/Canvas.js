@@ -23,7 +23,10 @@ function Canvas({ grid, lifeSwitch }) {
                 maxWidth: window.innerWidth / 1.5,
                 margin: '0 auto',
                 border: '1px solid black',
-                padding: '20px'
+                padding: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center'
             }}>
             {
                 rows.length ? rows.map((r, i) => (

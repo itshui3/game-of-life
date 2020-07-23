@@ -21,7 +21,6 @@ const Controller = (props) => {
             >
 
                 <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
-
                 <Controls nextBuffer={nextBuffer} reset={reset} startProgress={startProgress} />
 
             </div>
