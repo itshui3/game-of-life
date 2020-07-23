@@ -8,18 +8,17 @@ import React from "react"
 import ProgressButton from './ProgressButton.js'
 import ResetButton from './ResetButton.js'
 import SetIntervalButton from './SetIntervalButton.js'
-import './controls.css'
-import { control_styles } from './controls[inliners]/control_wrapper'
+import { control_styles, progressBtn_styles } from './controls[inliners]/control_wrapper'
 
-const Controls = ({nextBuffer, reset, startProgress, cur}) => {
+const Controls = ({nextBuffer, reset, startProgress}) => {
 
     return (
         <>
             <div 
-                className='controls-wrapper'
                 style={control_styles}
             >
                 <ProgressButton 
+                    style={progressBtn_styles}
                     nextBuffer={nextBuffer} 
                 />
                 <ResetButton

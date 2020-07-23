@@ -1,7 +1,17 @@
 const control_styles = {
-    maxWidth: window.innerWidth / 1.7
+    maxWidth: window.innerWidth / 1.5,
+    display: 'flex',
+    margin: '50px auto',
+    padding: '25px',
+    border: '2px solid black',
+    borderRadius: '5px',
+}
+
+const progressBtn_styles = {
+    maxWidth: '140px'
 }
 
 export {
-    control_styles
+    control_styles,
+    progressBtn_styles
 }

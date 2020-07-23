@@ -16,8 +16,8 @@ const Controller = (props) => {
     return (
         <>
             <div 
-                className='gol-wrapper'
-                style={{display: 'flex', flexDirection: 'column'}}
+                // className='gol-wrapper'
+                // style={{display: 'flex', flexDirection: 'column'}}
             >
                 <ErrorBoundary>
                     <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
