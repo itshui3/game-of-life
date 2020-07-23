@@ -1,6 +1,16 @@
 .cell {
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+}
+
+.rightCol {
+    border-right: none;
+}
+
+.bottomRow {
+    border-bottom: none;
 }
 
 .living {

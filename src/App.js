@@ -13,7 +13,6 @@ function App() {
       <header className="App-header">
       </header>
       <Controller />
-      {/* <Canvas cvsref={canvas} /> */}
     </div>
   );
 }

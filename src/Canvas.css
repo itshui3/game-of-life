@@ -1,5 +1,4 @@
 .canvas_wrapper {
     margin: 40px auto;
-    display: flex;
-    flex-direction: column;
+    width: 600px;
 }
