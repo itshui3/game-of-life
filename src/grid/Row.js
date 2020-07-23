@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Cell from './Cell'
 import './row.css'
 
-const Row = ({r, rId, lifeSwitch}) => {
+const Row = ({r, rId, lifeSwitch, lastRow}) => {
     const [cells, setCells] = useState([])
 
     useEffect(() => {
@@ -20,11 +20,17 @@ const Row = ({r, rId, lifeSwitch}) => {
             {
                 cells.length && cells.map((c, i) => (
                     <Cell 
-                        rowId={rId}
-                        key={i} 
-                        id={i} 
-                        c={c} 
-                        lifeSwitch={lifeSwitch}
+                        rowId = {rId}
+                        key = {i} 
+                        id = {i} 
+                        c = {c} 
+                        lifeSwitch = {lifeSwitch}
+                        lastCol = {
+                            i === (cells.length-1)
+                            ?   true
+                            :   false
+                        }
+                        lastRow = {lastRow}
                     />
                 ))
             }

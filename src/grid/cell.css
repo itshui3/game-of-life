@@ -5,6 +5,14 @@
     border-bottom: 1px solid lightgray;
 }
 
+.rightCol {
+    border-right: none;
+}
+
+.bottomRow {
+    border-bottom: none;
+}
+
 .living {
     background-color: black
 }

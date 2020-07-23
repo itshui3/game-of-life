@@ -10,13 +10,11 @@ import './Canvas.css'
 function Canvas({ grid, lifeSwitch }) {
 
     const [rows, setRows] = useState([])
-    const [rowLength, setRowLength] = useState()
 
     useEffect(() => {
         if (grid === undefined) { return } 
         if (!grid.length) { return }
         setRows(grid)
-        setRowLength((grid[0].length * 15) + (grid[0].length * 15) - 1)
     }, [grid])
 
     return (
@@ -35,6 +33,11 @@ function Canvas({ grid, lifeSwitch }) {
                         rId = {i} 
                         r = {r} 
                         lifeSwitch = {lifeSwitch}
+                        lastRow = {
+                            i === (rows.length-1)
+                            ?   true
+                            :   false
+                        }
                     />
                 )) : null
             }
