@@ -16,12 +16,7 @@ const Cell = ({c, id, rowId, lifeSwitch, lastCol, lastRow}) => {
         <>
             <div 
                 id = {id}
-                className = {`
-                cell 
-                ${life ? 'living' : 'dead'}
-                ${lastCol ? 'rightCol' : ''}
-                ${lastRow ? 'bottomRow' : ''}
-                `}
+                className = {`cell${life ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
                 onClick = { () => lifeSwitch(rowId, id) }
             ></div>
         </>

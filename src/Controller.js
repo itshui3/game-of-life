@@ -12,7 +12,7 @@ import ErrorBoundary from './helpers/ErrorBoundary'
 import { useBufferSystem } from './hooks/useBufferSystem.js'
 
 const Controller = (props) => {
-    const [grid, current, lifeSwitch, nextBuffer, reset, startProgress] = useBufferSystem(20, 20)
+    const [grid, current, lifeSwitch, nextBuffer, reset, startProgress] = useBufferSystem(25, 25)
     return (
         <>
             <div 
