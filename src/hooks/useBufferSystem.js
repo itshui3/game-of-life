@@ -26,6 +26,9 @@ const useBufferSystem = (cols, rows) => {
 
         function reProgress() {
             if (!continueProgress) { return }
+// Problem[#01] calculate timeout and adjust recurses on timeout basis
+// Stretch: Allow user to designate timeout, normalize to the user's set time
+            let timeout
             setTimeout(reProgress, 1000)
             swapNextBuffer(cur)
             switch (cur) {
