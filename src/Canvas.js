@@ -2,7 +2,6 @@
 // Top-Level Canvas API
 // Maps Rows into Row Component
 // Generates individual row ids[Needs double-checking(might need another engineer to look at)]
-
 import React, { useState, useEffect } from 'react'
 import Row from './grid/Row.js'
 import './Canvas.css'
@@ -12,7 +11,7 @@ function Canvas({ grid, lifeSwitch }) {
     const [rows, setRows] = useState([])
 
     useEffect(() => {
-        if (grid === undefined) { return } 
+        if (grid === undefined) { return }
         if (!grid.length) { return }
         setRows(grid)
     }, [grid])
@@ -32,9 +31,9 @@ function Canvas({ grid, lifeSwitch }) {
                 rows.length ? rows.map((r, i) => (
                     <Row
                         className = "row"
-                        key = {i} 
-                        rId = {i} 
-                        r = {r} 
+                        key = {i}
+                        rId = {i}
+                        r = {r}
                         lifeSwitch = {lifeSwitch}
                         lastRow = {
                             i === (rows.length-1)
