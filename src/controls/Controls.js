@@ -5,10 +5,14 @@
 // Initialize Preset Shapes]
 
 import React from "react"
+// inline styles
+import { control_styles, progressBtn_styles } from './controls[inliners]/control_wrapper'
+// start/stop panel
 import ProgressButton from './ProgressButton.js'
 import ResetButton from './ResetButton.js'
 import SetIntervalButton from './SetIntervalButton.js'
-import { control_styles, progressBtn_styles } from './controls[inliners]/control_wrapper'
+// creatures panel
+import CreaturesPanel from './CreaturesAPI/CreaturesPanel.js'
 
 const Controls = ({nextBuffer, reset, startProgress}) => {
 
@@ -27,6 +31,11 @@ const Controls = ({nextBuffer, reset, startProgress}) => {
                 <SetIntervalButton
                     startProgress={startProgress}
                 />
+            </div>
+            <div
+                style={control_styles}
+            >
+                <CreaturesPanel />
             </div>
         </>
     )
