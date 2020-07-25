@@ -1,10 +1,12 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useGrid } from './useGrid.js'
 import { useProgress } from './useProgress.js'
 
 const useBufferSystem = (cols, rows) => {
     const [grid, setGrid, current, setCurrent, swapNextBuffer, lifeSwitch] = useGrid(cols, rows)
-    const [progress, setProgress, startProgress, stopper, setStopper] = useProgress()
+    const [progress, setProgress, stopper, setStopper] = useProgress()
+// creaturesAPI placement state
+    const [placement, setPlacement] = useState(false)
 
 // progressEffect
     useEffect(() => {
@@ -72,7 +74,40 @@ const useBufferSystem = (cols, rows) => {
 
     }
 
-    return [grid, current, lifeSwitch, nextBuffer, reset, startProgress]
+// creaturesAPI - placeCreature
+    const placeCreature = () => {
+        if (progress) { console.log('cannot place creature during progression')}
+        else {
+            switch(placement) {
+                case false:
+                    setPlacement(true)
+                    break
+                case true:
+                    setPlacement(false)
+                    break
+                default:
+                    console.log('placement neither true nor false')
+            }
+        }
+    }
+
+    const startProgress = () => {
+        if (placement) {
+            console.log('cannot progress while creatureFactory generating lifeform') 
+            return
+        }
+        switch (progress) {
+            case false:
+                setProgress(true)
+                break
+            default:
+                if ( !(Object.entries(stopper).length === 0) ) { 
+                    stopper.stop() 
+                }
+        }
+    }
+
+    return [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement]
 }
 
 export { useBufferSystem }

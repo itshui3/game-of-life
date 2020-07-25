@@ -8,11 +8,11 @@
 import React from 'react';
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
-import ErrorBoundary from './helpers/ErrorBoundary'
 import { useBufferSystem } from './hooks/useBufferSystem.js'
 
 const Controller = (props) => {
-    const [grid, current, lifeSwitch, nextBuffer, reset, startProgress] = useBufferSystem(25, 25)
+    const [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement] = useBufferSystem(25, 25)
+
     return (
         <>
             <div 
@@ -21,7 +21,13 @@ const Controller = (props) => {
             >
 
                 <Canvas grid={grid[current]} lifeSwitch={lifeSwitch} />
-                <Controls nextBuffer={nextBuffer} reset={reset} startProgress={startProgress} />
+                <Controls 
+                nextBuffer={nextBuffer} 
+                reset={reset} 
+                startProgress={startProgress} 
+                placeCreature={placeCreature}
+                placement={placement}
+                />
 
             </div>
         </>

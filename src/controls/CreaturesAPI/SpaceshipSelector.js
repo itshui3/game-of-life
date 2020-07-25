@@ -5,7 +5,6 @@ const SpaceshipSelector = ({select, selected}) => {
 
     const [renderSelection, setRenderSelection] = useState('')
     useEffect(() => {
-        console.log('hello world', selected.lifeform)
         if (selected.type === 'ss') {
             setRenderSelection(selected.lifeform)
         } else {
@@ -18,9 +17,6 @@ const SpaceshipSelector = ({select, selected}) => {
             type: 'ss',
             lifeform: ev.target.value
         }
-
-        console.log('newSelection', newSelection)
-
         select(newSelection)
     }
 
