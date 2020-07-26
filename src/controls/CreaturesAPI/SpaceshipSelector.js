@@ -1,5 +1,5 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const SpaceshipSelector = ({select, selected}) => {
 
@@ -27,9 +27,7 @@ const SpaceshipSelector = ({select, selected}) => {
             <select 
             id='spaceships' 
             onChange={parseSelection} 
-            value={renderSelection}
-            
-            >
+            value={renderSelection}>
                 <option value='none'>None</option>
                 <option value='glider'>Glider</option>
                 <option value='lwss'>Lightweight Spaceship</option>

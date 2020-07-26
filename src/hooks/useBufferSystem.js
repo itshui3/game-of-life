@@ -3,7 +3,7 @@ import { useGrid } from './useGrid.js'
 import { useProgress } from './useProgress.js'
 
 const useBufferSystem = (cols, rows) => {
-    const [grid, setGrid, current, setCurrent, swapNextBuffer, lifeSwitch] = useGrid(cols, rows)
+    const [grid, setGrid, current, setCurrent, swapNextBuffer] = useGrid(cols, rows)
     const [progress, setProgress, stopper, setStopper] = useProgress()
 // creaturesAPI placement state
     const [placement, setPlacement] = useState(false)
@@ -31,7 +31,7 @@ const useBufferSystem = (cols, rows) => {
 // Problem[#01] calculate timeout and adjust recurses on timeout basis
 // Stretch: Allow user to designate timeout, normalize to the user's set time
             let timeout
-            setTimeout(reProgress, 300)
+            setTimeout(reProgress, 700)
             swapNextBuffer(cur)
             switch (cur) {
                 case '1':
@@ -105,6 +105,28 @@ const useBufferSystem = (cols, rows) => {
                     stopper.stop() 
                 }
         }
+    }
+
+    const lifeSwitch = (rowId, cellId) => {
+        if (placement) { return }
+
+        let switchedCell
+
+        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
+        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
+
+        let preSlice = grid[current].slice(0, rowId)
+        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
+        let postSlice = grid[current].slice(rowId + 1)
+        preSlice.push(modRow)
+
+        let newGrid = preSlice.concat(postSlice)
+
+        setGrid({
+            ...grid,
+            [current]: newGrid
+        })
+
     }
 
     return [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement]

@@ -7,6 +7,8 @@ import OscillatorSelector from './OscillatorSelector.js'
 import SpaceshipSelector from './SpaceshipSelector.js'
 // Creature Factory/Recycling
 import CreatureFactory from './CreatureFactory.js'
+// Cursor-fixed image
+import CreatureCursor from './CreatureCursor.js'
 
 const CreaturesPanel = ({placeCreature, placement}) => {
 
@@ -30,6 +32,7 @@ const CreaturesPanel = ({placeCreature, placement}) => {
             <OscillatorSelector select={select} selected={selected} />
             <SpaceshipSelector select={select} selected={selected} />
             <CreatureFactory placeSelection={placeSelection} placement={placement} />
+            <CreatureCursor placement={placement} />
         </>
     )
 }

@@ -59,28 +59,7 @@ const useGrid = (cols, rows) => {
         }
     }
 
-    const lifeSwitch = (rowId, cellId) => {
-
-        let switchedCell
-
-        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
-        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
-
-        let preSlice = grid[current].slice(0, rowId)
-        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
-        let postSlice = grid[current].slice(rowId + 1)
-        preSlice.push(modRow)
-
-        let newGrid = preSlice.concat(postSlice)
-
-        setGrid({
-            ...grid,
-            [current]: newGrid
-        })
-
-    }
-
-    return [grid, setGrid, current, setCurrent, swapNextBuffer, lifeSwitch]
+    return [grid, setGrid, current, setCurrent, swapNextBuffer]
 }
 
 export { useGrid }
