@@ -4,7 +4,6 @@ import React from 'react';
 import './App.css';
 
 import Controller from './Controller.js';
-// import CanvasController from './CanvasController.js'
 
 function App() {
 
