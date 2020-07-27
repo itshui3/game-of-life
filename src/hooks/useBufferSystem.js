@@ -34,7 +34,6 @@ const useBufferSystem = (cols, rows) => {
             if (!continueProgress) { return }
 // Problem[#01] calculate timeout and adjust recurses on timeout basis
 // Stretch: Allow user to designate timeout, normalize to the user's set time
-            let timeout
             setTimeout(reProgress, 700)
             swapNextBuffer(cur)
             switch (cur) {
@@ -96,10 +95,6 @@ const useBufferSystem = (cols, rows) => {
     }
 
 // creaturesAPI
-// write a fn that given the name of a creature, a grid[current], and grid[r][c]
-// grabs it from models and plugs into spawnCreature helper
-// the return of spawnCreature helper if false will return false
-// if true, setGrid({ ...grid, grid[current] = spawnCreature() })
     function generateCreatureAtCoords(creature, coords) {
         if(!placement) { return }
 
@@ -139,7 +134,6 @@ const useBufferSystem = (cols, rows) => {
     }
 
     const lifeSwitch = (rowId, cellId) => {
-// I might be mutating state here
         if (placement) { return }
 
         let switchedCell
