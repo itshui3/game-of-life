@@ -10,29 +10,22 @@ import CreatureFactory from './CreatureFactory.js'
 // Cursor-fixed image
 import CreatureCursor from './CreatureCursor.js'
 
-const CreaturesPanel = ({placeCreature, placement}) => {
-
-    const [selected, setSelected] = useState({
-        type: '',
-        lifeform: 'none'
-    })
-
-    const select = (selection) => {
-        setSelected(selection)
-    }
-
-    const placeSelection = () => {
-        if (selected['lifeform'] !== 'none') {
-            placeCreature()
-        }
-    }
+const CreaturesPanel = ({placement, select, placeSelection, selected}) => {
 
     return (
         <>
-            <OscillatorSelector select={select} selected={selected} />
-            <SpaceshipSelector select={select} selected={selected} />
-            <CreatureFactory placeSelection={placeSelection} placement={placement} />
-            <CreatureCursor placement={placement} />
+            <OscillatorSelector 
+            select={select} 
+            selected={selected} />
+
+            <SpaceshipSelector 
+            select={select} 
+            selected={selected} />
+
+            <CreatureFactory 
+            placeSelection={placeSelection} 
+            placement={placement} />
+            {/* <CreatureCursor placement={placement} /> */}
         </>
     )
 }

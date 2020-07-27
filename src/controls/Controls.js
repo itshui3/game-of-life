@@ -14,7 +14,7 @@ import SetIntervalButton from './SetIntervalButton.js'
 // creatures panel
 import CreaturesPanel from './CreaturesAPI/CreaturesPanel.js'
 
-const Controls = ({nextBuffer, reset, startProgress, placeCreature, placement}) => {
+const Controls = ({nextBuffer, reset, startProgress, placeCreature, placement, select, placeSelection, selected}) => {
 
     return (
         <>
@@ -31,7 +31,13 @@ const Controls = ({nextBuffer, reset, startProgress, placeCreature, placement}) 
                 />
             </div>
             <div style={control_styles} >
-                <CreaturesPanel placeCreature={placeCreature} placement={placement} />
+                <CreaturesPanel 
+                placeCreature={placeCreature} 
+                placement={placement} 
+                select={select}
+                placeSelection={placeSelection}
+                selected={selected}
+                />
             </div>
         </>
     )

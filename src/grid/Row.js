@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import Cell from './Cell'
 import './row.css'
 
-const Row = ({r, rId, lifeSwitch, lastRow}) => {
+const Row = ({r, rId, lifeSwitch, lastRow, feedCreatureCoords}) => {
     const [cells, setCells] = useState([])
 
     useEffect(() => {
@@ -30,6 +30,7 @@ const Row = ({r, rId, lifeSwitch, lastRow}) => {
                             ?   true
                             :   false
                         }
+                        feedCreatureCoords={feedCreatureCoords}
                         lastRow = {lastRow}
                     />
                 ))

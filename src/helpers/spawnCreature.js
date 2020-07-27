@@ -5,6 +5,7 @@
 // 6x6 grid
 import { cloneGrid } from './cloneGrid.js'
 
+// testData
 let sampleGrid = [
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
@@ -35,7 +36,6 @@ const beacon = [
     [0, 0, 1, 1]
 ]
 
-// if possible
 function surveyOrigin(dimensions, grid, origin) {
     let creature_height = dimensions[0]
     let creature_width = dimensions[1]
@@ -47,8 +47,9 @@ function surveyOrigin(dimensions, grid, origin) {
     else { return true }
 }
 
+// returns a grid with creature spawned
 function spawnCreature(creature, grid, origin) {
-
+    console.log('creature', creature)
     let dimensions = [creature.length, creature[0].length] // [r, c]
     if (!surveyOrigin(dimensions, grid, origin)) { return false }
 

@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useGrid } from './useGrid.js'
 import { useProgress } from './useProgress.js'
+// creatureModels
+import Creatures from '../assets/creatureModels'
+// helpers
+import { spawnCreature } from '../helpers'
 
 const useBufferSystem = (cols, rows) => {
     const [grid, setGrid, current, setCurrent, swapNextBuffer] = useGrid(cols, rows)
@@ -91,6 +95,33 @@ const useBufferSystem = (cols, rows) => {
         }
     }
 
+// creaturesAPI
+// write a fn that given the name of a creature, a grid[current], and grid[r][c]
+// grabs it from models and plugs into spawnCreature helper
+// the return of spawnCreature helper if false will return false
+// if true, setGrid({ ...grid, grid[current] = spawnCreature() })
+    function generateCreatureAtCoords(creature, coords) {
+        if(!placement) { return }
+
+        let creatureGrid
+
+        if(creature['type'] === 'osc') {
+            creatureGrid = Creatures['oscillators'][creature['lifeform']]
+        } else if (creature['type'] === 'ss') {
+            creatureGrid = Creatures['spaceships'][creature['lifeform']]
+        }
+
+        let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
+        if (!creatureSpawnedGrid) { return }
+
+        setGrid({
+            ...grid,
+            [current]: creatureSpawnedGrid,
+        })
+
+        setPlacement(false)
+    }
+
     const startProgress = () => {
         if (placement) {
             console.log('cannot progress while creatureFactory generating lifeform') 
@@ -108,6 +139,7 @@ const useBufferSystem = (cols, rows) => {
     }
 
     const lifeSwitch = (rowId, cellId) => {
+// I might be mutating state here
         if (placement) { return }
 
         let switchedCell
@@ -129,7 +161,7 @@ const useBufferSystem = (cols, rows) => {
 
     }
 
-    return [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement]
+    return [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement, generateCreatureAtCoords]
 }
 
 export { useBufferSystem }
