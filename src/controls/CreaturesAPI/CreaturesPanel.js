@@ -9,23 +9,26 @@ import SpaceshipSelector from './SpaceshipSelector.js'
 import CreatureFactory from './CreatureFactory.js'
 // Cursor-fixed image
 import CreatureCursor from './CreatureCursor.js'
+// inline styles
+import { control_styles } from '../controls[inliners]/control_wrapper'
 
 const CreaturesPanel = ({placement, select, placeSelection, selected}) => {
 
     return (
         <>
-            <OscillatorSelector 
-            select={select} 
-            selected={selected} />
+            <div style={control_styles}>
+                <OscillatorSelector 
+                select={select} 
+                selected={selected} />
 
-            <SpaceshipSelector 
-            select={select} 
-            selected={selected} />
+                <SpaceshipSelector 
+                select={select} 
+                selected={selected} />
 
-            <CreatureFactory 
-            placeSelection={placeSelection} 
-            placement={placement} />
-            {/* <CreatureCursor placement={placement} /> */}
+                <CreatureFactory 
+                placeSelection={placeSelection} 
+                placement={placement} />
+            </div>
         </>
     )
 }
