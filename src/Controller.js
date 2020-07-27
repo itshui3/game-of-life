@@ -18,10 +18,11 @@ const cols = 25
 
 const Controller = (props) => {
     const [grid, setGrid, current, setCurrent, swapNextBuffer] = useGrid(rows, cols)
-    const [progress, setProgress, stopper, setStopper] = useProgress()
+
+    const [progress, setProgress] = useState(false)
+    const [stopper, setStopper] = useState({})
     const [placement, setPlacement] = useState(false)
-    // way too many things here
-    // const [grid, current, lifeSwitch, nextBuffer, reset, startProgress, placeCreature, placement, generateCreatureAtCoords] = useBufferSystem(25, 25)
+
     // progressEffect
     useEffect(() => {
         if (progress !== true) { return }
