@@ -1,11 +1,10 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const SpaceshipSelector = ({select, selected}) => {
 
     const [renderSelection, setRenderSelection] = useState('')
     useEffect(() => {
-        console.log('hello world', selected.lifeform)
         if (selected.type === 'ss') {
             setRenderSelection(selected.lifeform)
         } else {
@@ -18,9 +17,6 @@ const SpaceshipSelector = ({select, selected}) => {
             type: 'ss',
             lifeform: ev.target.value
         }
-
-        console.log('newSelection', newSelection)
-
         select(newSelection)
     }
 
@@ -31,9 +27,7 @@ const SpaceshipSelector = ({select, selected}) => {
             <select 
             id='spaceships' 
             onChange={parseSelection} 
-            value={renderSelection}
-            
-            >
+            value={renderSelection}>
                 <option value='none'>None</option>
                 <option value='glider'>Glider</option>
                 <option value='lwss'>Lightweight Spaceship</option>

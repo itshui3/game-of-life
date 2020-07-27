@@ -1,6 +1,7 @@
 const control_styles = {
     maxWidth: window.innerWidth / 1.5,
     display: 'flex',
+    justifyContent: 'space-around',
     margin: '50px auto',
     padding: '25px',
     border: '2px solid black',

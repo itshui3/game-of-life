@@ -1,11 +1,11 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 const OscillatorSelector = ({select, selected}) => {
 
     const [renderSelection, setRenderSelection] = useState('')
+
     useEffect(() => {
-        console.log('hello world', selected.lifeform)
         if (selected.type === 'osc') {
             setRenderSelection(selected.lifeform)
         } else {
@@ -18,9 +18,6 @@ const OscillatorSelector = ({select, selected}) => {
             type: 'osc',
             lifeform: ev.target.value
         }
-
-        console.log('newSelection', newSelection)
-
         select(newSelection)
     }
 
@@ -28,7 +25,7 @@ const OscillatorSelector = ({select, selected}) => {
         <>
             <label htmlFor = 'oscillators'>Select an Oscillator</label>
 
-            <select id = 'oscillators' value={renderSelection} onChange={parseSelection} >
+            <select id = 'oscillators' onChange={parseSelection} value={renderSelection}>
                 <option value='none'>None</option>
                 <option value='blinker'>Blinker</option>
                 <option value='toad'>Toad</option>

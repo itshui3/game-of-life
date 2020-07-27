@@ -5,23 +5,27 @@ import React, { useState } from 'react'
 // Selectors
 import OscillatorSelector from './OscillatorSelector.js'
 import SpaceshipSelector from './SpaceshipSelector.js'
+// Creature Factory/Recycling
+import CreatureFactory from './CreatureFactory.js'
+// Cursor-fixed image
+import CreatureCursor from './CreatureCursor.js'
 
-const CreaturesPanel = () => {
-
-    const [selected, setSelected] = useState({
-        type: '',
-        lifeform: ''
-    })
-
-    const select = (selection) => {
-        console.log('selected', selection)
-        setSelected(selection)
-    }
+const CreaturesPanel = ({placement, select, placeSelection, selected}) => {
 
     return (
         <>
-            <OscillatorSelector select={select} selected={selected} />
-            <SpaceshipSelector select={select} selected={selected} />
+            <OscillatorSelector 
+            select={select} 
+            selected={selected} />
+
+            <SpaceshipSelector 
+            select={select} 
+            selected={selected} />
+
+            <CreatureFactory 
+            placeSelection={placeSelection} 
+            placement={placement} />
+            {/* <CreatureCursor placement={placement} /> */}
         </>
     )
 }

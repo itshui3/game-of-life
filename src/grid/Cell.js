@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from "react"
 import "./cell.css"
 
-const Cell = ({c, id, rowId, lifeSwitch, lastCol, lastRow}) => {
+const Cell = ({c, id, rowId, lifeSwitch, lastCol, lastRow, feedCreatureCoords}) => {
     const [life, setlife] = useState()
 
     useEffect(() => {
@@ -17,7 +17,10 @@ const Cell = ({c, id, rowId, lifeSwitch, lastCol, lastRow}) => {
             <div 
                 id = {id}
                 className = {`cell${life ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
-                onClick = { () => lifeSwitch(rowId, id) }
+                onClick = { () => {
+                    lifeSwitch(rowId, id)
+                    feedCreatureCoords([rowId, id])
+                } }
             ></div>
         </>
     )

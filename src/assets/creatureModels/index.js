@@ -1,7 +1,6 @@
 import { oscillators } from './oscillators.js'
 import { spaceships } from './spaceships.js'
 
-export {
-    oscillators,
-    spaceships
-}
+const Creatures = { oscillators, spaceships }
+
+export default Creatures

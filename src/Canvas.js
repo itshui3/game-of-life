@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 import Row from './grid/Row.js'
 import './Canvas.css'
 
-function Canvas({ grid, lifeSwitch }) {
+function Canvas({ grid, lifeSwitch, feedCreatureCoords }) {
 
     const [rows, setRows] = useState([])
 
@@ -35,6 +35,7 @@ function Canvas({ grid, lifeSwitch }) {
                         rId = {i}
                         r = {r}
                         lifeSwitch = {lifeSwitch}
+                        feedCreatureCoords = {feedCreatureCoords}
                         lastRow = {
                             i === (rows.length-1)
                             ?   true
