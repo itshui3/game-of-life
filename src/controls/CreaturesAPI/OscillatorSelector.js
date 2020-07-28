@@ -1,8 +1,9 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
 import React, { useState, useEffect, useRef } from 'react'
 
-const OscillatorSelector = ({select, selected}) => {
+const OscillatorSelector = ({ selectionAPI }) => {
 
+    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
 
     useEffect(() => {

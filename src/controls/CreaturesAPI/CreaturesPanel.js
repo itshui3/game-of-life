@@ -1,6 +1,6 @@
 // CreaturesPanel is the entrypoint for all things creatures related
 // It can also be thought of as the overarching controller element for creaturesAPI
-import React, { useState } from 'react'
+import React from 'react'
 
 // Selectors
 import OscillatorSelector from './OscillatorSelector.js'
@@ -12,22 +12,19 @@ import CreatureCursor from './CreatureCursor.js'
 // inline styles
 import { control_styles } from '../controls[inliners]/control_wrapper'
 
-const CreaturesPanel = ({placement, select, placeSelection, selected}) => {
+const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
     return (
         <>
             <div style={control_styles}>
                 <OscillatorSelector 
-                select={select} 
-                selected={selected} />
+                selectionAPI={selectionAPI} />
 
                 <SpaceshipSelector 
-                select={select} 
-                selected={selected} />
+                selectionAPI={selectionAPI} />
 
                 <CreatureFactory 
-                placeSelection={placeSelection} 
-                placement={placement} />
+                placementAPI={placementAPI} />
             </div>
         </>
     )

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 // hooks
-import { useBufferSystem, useGrid, useProgress } from './hooks'
+import { useGrid, useSelection } from './hooks'
 // assets
 import Creatures from './assets/creatureModels'
 // helpers
@@ -17,7 +17,8 @@ const rows = 25
 const cols = 25
 
 const Controller = (props) => {
-    const [grid, setGrid, current, setCurrent, swapNextBuffer] = useGrid(rows, cols)
+    // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
+    const [grid, setGrid, current, swapNextBuffer, only_reset, lifeSwitch] = useGrid(rows, cols)
 
     const [progress, setProgress] = useState(false)
     const [stopper, setStopper] = useState({})
@@ -39,13 +40,12 @@ const Controller = (props) => {
             stop: stopProgress
         })
 
-        let cur = current
-
-        function reProgress() {
+        function reProgress(current) {
             if (!continueProgress) { return }
     // Problem[#01] calculate timeout and adjust recurses on timeout basis
     // Stretch: Allow user to designate timeout, normalize to the user's set time
-            setTimeout(reProgress, 700)
+            let cur = current
+            setTimeout(() => reProgress(cur), 700)
             swapNextBuffer(cur)
             switch (cur) {
                 case '1':
@@ -58,37 +58,39 @@ const Controller = (props) => {
                     console.log('cur is neither 1 or 2 somehow')
             }
         }
-        reProgress()
+        reProgress(current)
 
     }, [progress])
 
+// progression helpers
     const nextBuffer = () => {
         if (!progress) { swapNextBuffer(current) }
         else { console.log('cannot perform manual nextGen while progression occurring')}
     }
 
+    const startProgress = () => {
+        if (placement) {
+            console.log('cannot progress while creatureFactory generating lifeform')
+            return
+        }
+        switch (progress) {
+            case false:
+                setProgress(true)
+                break
+            default:
+                if ( !(Object.entries(stopper).length === 0) ) {
+                    stopper.stop()
+                }
+        }
+    }
     const reset = () => {
-        if ( !(Object.entries(stopper).length === 0) ) { stopper.stop() }
-        
-        let grid = {
-            '1': [],
-            '2': []
+        if ( !(Object.entries(stopper).length === 0) ) {
+            stopper.stop()
         }
-
-        let row = []
-        for (let i = 0; i < cols; i++) {
-            row.push(0)
-        }
-
-        for (let i = 0; i < rows; i++) { grid['1'].push(row) }
-        for (let i = 0; i < rows; i++) { grid['2'].push(row) }
-
-        setGrid(grid)
-        setCurrent('1')
-
+        return only_reset()
     }
 
-    // creaturesAPI - placeCreature
+// creature placement helpers
     const placeCreature = () => {
         if (progress) { console.log('cannot place creature during progression')}
         else {
@@ -105,10 +107,10 @@ const Controller = (props) => {
         }
     }
 
-    // creaturesAPI
     function generateCreatureAtCoords(creature, coords) {
-        if(!placement) { return }
-
+// deps: [Creatures, grid, current, setGrid]
+// Creatures - I can pull in from wherever I need
+// 
         let creatureGrid
 
         if(creature['type'] === 'osc') {
@@ -125,51 +127,18 @@ const Controller = (props) => {
             [current]: creatureSpawnedGrid,
         })
 
-        setPlacement(false)
     }
 
-    const startProgress = () => {
-        if (placement) {
-            console.log('cannot progress while creatureFactory generating lifeform') 
-            return
-        }
-        switch (progress) {
-            case false:
-                setProgress(true)
-                break
-            default:
-                if ( !(Object.entries(stopper).length === 0) ) { 
-                    stopper.stop() 
-                }
+// justifiably could stay in controller.js
+    const clickCell = (rowId, cellId) => {
+        if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
+        if (placement) { 
+            setPlacement(false)
+            return generateCreatureAtCoords(selected, [rowId, cellId])
         }
     }
 
-    const lifeSwitch = (rowId, cellId) => {
-        if (placement) { return }
-
-        let switchedCell
-
-        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
-        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
-
-        let preSlice = grid[current].slice(0, rowId)
-        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
-        let postSlice = grid[current].slice(rowId + 1)
-        preSlice.push(modRow)
-
-        let newGrid = preSlice.concat(postSlice)
-
-        setGrid({
-            ...grid,
-            [current]: newGrid
-        })
-
-    }
-
-    const [selected, setSelected] = useState({
-        type: '',
-        lifeform: 'none'
-    })
+    const [selected, setSelected] = useSelection()
 
 // places a creature in stateQueue
     const select = (selection) => {
@@ -178,33 +147,34 @@ const Controller = (props) => {
 // changes state to be 'placing creature'
     const placeSelection = () => {
         if (selected['lifeform'] !== 'none') {
-            placeCreature()
+            if (progress) { console.log('cannot place creature during progression')}
+            else {
+                switch(placement) {
+                    case false:
+                        setPlacement(true)
+                        break
+                    case true:
+                        setPlacement(false)
+                        break
+                    default:
+                        console.log('placement neither true nor false')
+                }
+            }
         }
-    }
-
-    const feedCreatureCoords = (coords) => {
-        if (!placement) { return }
-        if (selected['lifeform'] === 'none') { return }
-        generateCreatureAtCoords(selected, coords)
     }
 
     return (
         <>
-            <Canvas 
-            grid={grid[current]} 
-            lifeSwitch={lifeSwitch} 
-            feedCreatureCoords={feedCreatureCoords}
+            <Canvas
+            grid={grid[current]}
+            clickCell={clickCell}
             />
-            <Controls 
+            <Controls
             // grid
-            nextBuffer={nextBuffer} 
-            reset={reset} 
-            startProgress={startProgress}
+            progressAPI={ {nextBuffer, reset, startProgress} }
             // creature
-            placement={placement}
-            select={select}
-            selected={selected}
-            placeSelection={placeSelection}
+            placementAPI={ {placement, placeSelection} }
+            selectionAPI={ {select, selected} }
             />
         </>
     )

@@ -4,7 +4,9 @@
 // 3. loads creature into state
 import React from 'react'
 
-const CreatureFactory = ({placeSelection, placement}) => {
+const CreatureFactory = ({placementAPI}) => {
+
+    const { placeSelection, placement } = placementAPI
 
     return (
         <>
