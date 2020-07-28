@@ -7,12 +7,14 @@ import ProgressButton from './ProgressButton.js'
 import ResetButton from './ResetButton.js'
 import SetIntervalButton from './SetIntervalButton.js'
 
-const ProgressionPanel = ({nextBuffer, reset, startProgress}) => {
+const ProgressionPanel = ({progressAPI}) => {
+
+    const { nextBuffer, reset, startProgress } = progressAPI
 
     return (
         <>
             <div style={control_styles}>
-                <ProgressButton 
+                <ProgressButton
                     style={progressBtn_styles}
                     nextBuffer={nextBuffer} 
                 />

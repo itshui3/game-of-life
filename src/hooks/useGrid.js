@@ -45,6 +45,7 @@ const useGrid = (cols, rows) => {
         // 3] reset
     }, [grid[current]])
 
+// potential candidate for useCallback
     const swapNextBuffer = (cur) => {
         switch(cur) {
             case '1':
@@ -58,8 +59,49 @@ const useGrid = (cols, rows) => {
                 console.log('current reference did not match grids 1 or 2\nCurrent: ', cur)
         }
     }
+// what's a better name for a reset missing consumables? 
+    const only_reset = () => {
+        // I need to call .stop() if in-progress
+   
+        let grid = {
+            '1': [],
+            '2': []
+        }
 
-    return [grid, setGrid, current, setCurrent, swapNextBuffer]
+        let row = []
+        for (let i = 0; i < cols; i++) {
+            row.push(0)
+        }
+
+        for (let i = 0; i < rows; i++) { grid['1'].push(row) }
+        for (let i = 0; i < rows; i++) { grid['2'].push(row) }
+
+        setGrid(grid)
+        setCurrent('1')
+    }
+
+    const lifeSwitch = (rowId, cellId) => {
+
+        let switchedCell
+
+        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
+        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
+
+        let preSlice = grid[current].slice(0, rowId)
+        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
+        let postSlice = grid[current].slice(rowId + 1)
+        preSlice.push(modRow)
+
+        let newGrid = preSlice.concat(postSlice)
+
+        setGrid({
+            ...grid,
+            [current]: newGrid
+        })
+
+    }
+
+    return [grid, setGrid, current, swapNextBuffer, only_reset, lifeSwitch]
 }
 
 export { useGrid }

@@ -10,22 +10,17 @@ import ProgressionPanel from './ProgressionAPI/ProgressionPanel.js'
 // creatures panel
 import CreaturesPanel from './CreaturesAPI/CreaturesPanel.js'
 
-const Controls = ({nextBuffer, reset, startProgress, placeCreature, placement, select, placeSelection, selected}) => {
+const Controls = ({progressAPI, selectionAPI, placementAPI}) => {
 
     return (
         <>
-            <ProgressionPanel 
-            nextBuffer={nextBuffer}
-            reset={reset}
-            startProgress={startProgress}
+            <ProgressionPanel
+            progressAPI={progressAPI}
             />
 
-            <CreaturesPanel 
-            placeCreature={placeCreature} 
-            placement={placement} 
-            select={select}
-            placeSelection={placeSelection}
-            selected={selected}
+            <CreaturesPanel
+            selectionAPI={selectionAPI}
+            placementAPI={placementAPI}
             />
         </>
     )

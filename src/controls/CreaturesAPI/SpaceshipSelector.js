@@ -1,9 +1,11 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
 import React, { useState, useEffect, useRef } from 'react'
 
-const SpaceshipSelector = ({select, selected}) => {
+const SpaceshipSelector = ({selectionAPI}) => {
 
+    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
+    
     useEffect(() => {
         if (selected.type === 'ss') {
             setRenderSelection(selected.lifeform)
