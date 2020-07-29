@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 // hooks
-import { useGrid, useSelection } from './hooks'
+import { useProgressionGrid, useSelection } from './hooks'
 // assets
 import Creatures from './assets/creatureModels'
 // helpers
@@ -16,58 +16,38 @@ import { spawnCreature } from './helpers'
 const rows = 25
 const cols = 25
 
-const Controller = (props) => {
+const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
-    const [grid, setGrid, current, swapNextBuffer, only_reset, lifeSwitch] = useGrid(rows, cols)
-
-    const [progress, setProgress] = useState(false)
-    const [stopper, setStopper] = useState({})
+    const [
+        grid, 
+        setGrid,
+        current, 
+        nextBuffer, 
+        reset, 
+        progress, 
+        setProgress, 
+        lifeSwitch, 
+        stopper
+    ] = useProgressionGrid(rows, cols)
     const [placement, setPlacement] = useState(false)
 
-    // progressEffect
-    useEffect(() => {
-        if (progress !== true) { return }
-
-        let continueProgress = true
-
-        function stopProgress() {
-            continueProgress = !continueProgress
-            setStopper({})
-            setProgress(false)
+// clickCell
+// stays in controller
+// dependencies: 
+// placement
+// progress
+// setPlacement
+// generateCreatureAtCoords
+// selected
+    const clickCell = (rowId, cellId) => {
+        if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
+        if (placement) {
+            setPlacement(false)
+            return generateCreatureAtCoords(selected, [rowId, cellId])
         }
-
-        setStopper({
-            stop: stopProgress
-        })
-
-        function reProgress(current) {
-            if (!continueProgress) { return }
-    // Problem[#01] calculate timeout and adjust recurses on timeout basis
-    // Stretch: Allow user to designate timeout, normalize to the user's set time
-            let cur = current
-            setTimeout(() => reProgress(cur), 700)
-            swapNextBuffer(cur)
-            switch (cur) {
-                case '1':
-                    cur = '2'
-                    break
-                case '2':
-                    cur = '1'
-                    break
-                default:
-                    console.log('cur is neither 1 or 2 somehow')
-            }
-        }
-        reProgress(current)
-
-    }, [progress])
-
-// progression helpers
-    const nextBuffer = () => {
-        if (!progress) { swapNextBuffer(current) }
-        else { console.log('cannot perform manual nextGen while progression occurring')}
     }
 
+// progressionAPI
     const startProgress = () => {
         if (placement) {
             console.log('cannot progress while creatureFactory generating lifeform')
@@ -81,29 +61,6 @@ const Controller = (props) => {
                 if ( !(Object.entries(stopper).length === 0) ) {
                     stopper.stop()
                 }
-        }
-    }
-    const reset = () => {
-        if ( !(Object.entries(stopper).length === 0) ) {
-            stopper.stop()
-        }
-        return only_reset()
-    }
-
-// creature placement helpers
-    const placeCreature = () => {
-        if (progress) { console.log('cannot place creature during progression')}
-        else {
-            switch(placement) {
-                case false:
-                    setPlacement(true)
-                    break
-                case true:
-                    setPlacement(false)
-                    break
-                default:
-                    console.log('placement neither true nor false')
-            }
         }
     }
 
@@ -127,15 +84,6 @@ const Controller = (props) => {
             [current]: creatureSpawnedGrid,
         })
 
-    }
-
-// justifiably could stay in controller.js
-    const clickCell = (rowId, cellId) => {
-        if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
-        if (placement) { 
-            setPlacement(false)
-            return generateCreatureAtCoords(selected, [rowId, cellId])
-        }
     }
 
     const [selected, setSelected] = useSelection()
