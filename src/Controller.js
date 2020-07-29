@@ -2,16 +2,12 @@
 // top level component
 // has all the things
 // bigCompo2020
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 // 2nd level components
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 // hooks
-import { useProgressionGrid, useSelection } from './hooks'
-// assets
-import Creatures from './assets/creatureModels'
-// helpers
-import { spawnCreature } from './helpers'
+import { useProgressionGridwPresetCreatures } from './hooks'
 
 const rows = 25
 const cols = 25
@@ -19,17 +15,23 @@ const cols = 25
 const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
     const [
-        grid, 
-        setGrid,
-        current, 
-        nextBuffer, 
-        reset, 
-        progress, 
-        setProgress, 
-        lifeSwitch, 
-        stopper
-    ] = useProgressionGrid(rows, cols)
-    const [placement, setPlacement] = useState(false)
+        // grid
+        currentGrid,
+        lifeSwitch,
+        // progression
+        nextBuffer,
+        progress,
+        setProgress,
+        reset,
+        stopper,
+        // presetCreatures
+        placement,
+        setPlacement,
+        select,
+        selected,
+        placeSelection,
+        generateCreatureAtCoords,
+    ] = useProgressionGridwPresetCreatures(rows, cols)
 
 // clickCell
 // stays in controller
@@ -48,6 +50,8 @@ const Controller = () => {
     }
 
 // progressionAPI
+// stays in Controller.js because it is a top-level controller
+// that determines whether a preset creature is placed or a cell is switched
     const startProgress = () => {
         if (placement) {
             console.log('cannot progress while creatureFactory generating lifeform')
@@ -64,57 +68,10 @@ const Controller = () => {
         }
     }
 
-    function generateCreatureAtCoords(creature, coords) {
-// deps: [Creatures, grid, current, setGrid]
-// Creatures - I can pull in from wherever I need
-// 
-        let creatureGrid
-
-        if(creature['type'] === 'osc') {
-            creatureGrid = Creatures['oscillators'][creature['lifeform']]
-        } else if (creature['type'] === 'ss') {
-            creatureGrid = Creatures['spaceships'][creature['lifeform']]
-        }
-
-        let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
-        if (!creatureSpawnedGrid) { return }
-
-        setGrid({
-            ...grid,
-            [current]: creatureSpawnedGrid,
-        })
-
-    }
-
-    const [selected, setSelected] = useSelection()
-
-// places a creature in stateQueue
-    const select = (selection) => {
-        setSelected(selection)
-    }
-// changes state to be 'placing creature'
-    const placeSelection = () => {
-        if (selected['lifeform'] !== 'none') {
-            if (progress) { console.log('cannot place creature during progression')}
-            else {
-                switch(placement) {
-                    case false:
-                        setPlacement(true)
-                        break
-                    case true:
-                        setPlacement(false)
-                        break
-                    default:
-                        console.log('placement neither true nor false')
-                }
-            }
-        }
-    }
-
     return (
         <>
             <Canvas
-            grid={grid[current]}
+            grid={currentGrid}
             clickCell={clickCell}
             />
             <Controls

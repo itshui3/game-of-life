@@ -28,7 +28,7 @@ const useProgressionGrid = (rows, cols) => {
     // Problem[#01] calculate timeout and adjust recurses on timeout basis
     // Stretch: Allow user to designate timeout, normalize to the user's set time
             let cur = current
-            setTimeout(() => reProgress(cur), 700)
+            setTimeout(() => reProgress(cur), 100)
             swapNextBuffer(cur)
             switch (cur) {
                 case '1':
@@ -58,14 +58,16 @@ const useProgressionGrid = (rows, cols) => {
     }
 
     return [
+        // grid
         grid, 
         setGrid,
         current, 
+        lifeSwitch, 
+        // progression
         nextBuffer, 
         reset, 
         progress, 
         setProgress, 
-        lifeSwitch, 
         stopper
     ]
 }
