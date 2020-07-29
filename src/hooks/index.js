@@ -1,5 +1,5 @@
 import { useGrid } from './useGrid.js'
-import { useProgress } from './useProgress.js'
+import { useProgressionGrid } from './useProgressionGrid.js'
 import { useSelection } from './useCreatures.js'
 
-export { useGrid, useProgress, useSelection }
+export { useGrid, useProgressionGrid, useSelection }
