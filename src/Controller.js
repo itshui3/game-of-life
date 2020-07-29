@@ -2,15 +2,15 @@
 // top level component
 // has all the things
 // bigCompo2020
-import React from 'react';
+import React, { useCallback } from 'react';
 // 2nd level components
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 // hooks
 import { useProgressionGridwPresetCreatures } from './hooks'
 
-const rows = 25
-const cols = 25
+const rows = 35
+const cols = 35
 
 const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
@@ -33,40 +33,35 @@ const Controller = () => {
         generateCreatureAtCoords,
     ] = useProgressionGridwPresetCreatures(rows, cols)
 
-// clickCell
-// stays in controller
-// dependencies: 
-// placement
-// progress
-// setPlacement
-// generateCreatureAtCoords
-// selected
-    const clickCell = (rowId, cellId) => {
-        if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
-        if (placement) {
-            setPlacement(false)
-            return generateCreatureAtCoords(selected, [rowId, cellId])
-        }
-    }
+    const clickCell = useCallback(
+        (rowId, cellId) => {
+            if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
+            if (placement) {
+                setPlacement(false)
+                return generateCreatureAtCoords(selected, [rowId, cellId])
+            }
+        },
+        [placement, progress, selected, lifeSwitch, generateCreatureAtCoords],
+    )
 
-// progressionAPI
-// stays in Controller.js because it is a top-level controller
-// that determines whether a preset creature is placed or a cell is switched
-    const startProgress = () => {
-        if (placement) {
-            console.log('cannot progress while creatureFactory generating lifeform')
-            return
-        }
-        switch (progress) {
-            case false:
-                setProgress(true)
-                break
-            default:
-                if ( !(Object.entries(stopper).length === 0) ) {
-                    stopper.stop()
-                }
-        }
-    }
+    const startProgress = useCallback(
+        () => {
+            if (placement) {
+                console.log('cannot progress while creatureFactory generating lifeform')
+                return
+            }
+            switch (progress) {
+                case false:
+                    setProgress(true)
+                    break
+                default:
+                    if ( !(Object.entries(stopper).length === 0) ) {
+                        stopper.stop()
+                    }
+            }
+        },
+        [placement, progress, stopper],
+    )
 
     return (
         <>

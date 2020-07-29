@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useProgressionGrid, useSelection } from '.'
 
 import Creatures from '../assets/creatureModels'
@@ -19,38 +19,43 @@ const useProgressionGridwPresetCreatures = (rows, cols) => {
         setProgress, 
         stopper
     ] = useProgressionGrid(rows, cols)
+
     const [selected, setSelected] = useSelection()
     const [placement, setPlacement] = useState(false)
-    // places a creature in stateQueue
-    const select = (selection) => {
-        setSelected(selection)
-    }
 
-    // changes state to be 'placing creature'
-    const placeSelection = () => {
-        if (selected['lifeform'] !== 'none') {
-            if (progress) { console.log('cannot place creature during progression')}
-            else {
-                switch(placement) {
-                    case false:
-                        setPlacement(true)
-                        break
-                    case true:
-                        setPlacement(false)
-                        break
-                    default:
-                        console.log('placement neither true nor false')
+    // assigns a creature to be placed
+    // this allows the next click on a cell to populate with a creature
+    const select = useCallback(
+        (selection) => {
+            setSelected(selection)
+        },
+        []
+    )
+
+    // puts grid in a state of 'awaiting creature'
+    // this means clicking a cell will not switchLife between [alive, dead]
+    const placeSelection = useCallback(
+        () => {
+            if (selected['lifeform'] !== 'none') {
+                if (progress) { console.log('cannot place creature during progression')}
+                else {
+                    switch(placement) {
+                        case false:
+                            setPlacement(true)
+                            break
+                        case true:
+                            setPlacement(false)
+                            break
+                        default:
+                            console.log('placement neither true nor false')
+                    }
                 }
             }
-        }
-    }
+        },
+        [selected, progress, placement]
+    )
 
     function generateCreatureAtCoords(creature, coords) {
-        // closure-deps: [Creatures, grid, current, setGrid]
-        // Creatures - I can pull in from wherever I need
-        // grid
-        // current
-        // setGrid
         let creatureGrid
 
         if(creature['type'] === 'osc') {
