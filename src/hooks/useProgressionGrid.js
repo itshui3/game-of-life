@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useGrid } from '.'
 
 const useProgressionGrid = (rows, cols) => {
@@ -7,6 +7,7 @@ const useProgressionGrid = (rows, cols) => {
     const [progress, setProgress] = useState(false)
     const [stopper, setStopper] = useState({})
 
+// quite a bit of lag here
     useEffect(() => {
         if (progress !== true) { return }
 
@@ -28,7 +29,7 @@ const useProgressionGrid = (rows, cols) => {
     // Problem[#01] calculate timeout and adjust recurses on timeout basis
     // Stretch: Allow user to designate timeout, normalize to the user's set time
             let cur = current
-            setTimeout(() => reProgress(cur), 700)
+            setTimeout(() => reProgress(cur), 200)
             swapNextBuffer(cur)
             switch (cur) {
                 case '1':
@@ -45,27 +46,35 @@ const useProgressionGrid = (rows, cols) => {
 
     }, [progress])
 
-    const nextBuffer = () => {
-        if (!progress) { swapNextBuffer(current) }
-        else { console.log('cannot perform manual nextGen while progression occurring')}
-    }
+    const nextBuffer = useCallback(
+        () => {
+            if (!progress) { swapNextBuffer(current) }
+            else { console.log('cannot manually progress to the next generation while automatically progressing generations')}
+        },
+        [progress, current]
+    )
 
-    const reset = () => {
-        if ( !(Object.entries(stopper).length === 0) ) {
-            stopper.stop()
-        }
-        return only_reset()
-    }
+    const reset = useCallback(
+        () => {
+            if ( !(Object.entries(stopper).length === 0) ) {
+                stopper.stop()
+            }
+            return only_reset()
+        },
+        [stopper, only_reset]
+    )
 
     return [
+        // grid
         grid, 
         setGrid,
         current, 
+        lifeSwitch, 
+        // progression
         nextBuffer, 
         reset, 
         progress, 
         setProgress, 
-        lifeSwitch, 
         stopper
     ]
 }

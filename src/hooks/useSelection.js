@@ -9,8 +9,4 @@ const useSelection = () => {
     return [selected, setSelected]
 }
 
-const useCreatures = () => {
-
-}
-
-export { useCreatures, useSelection }
+export { useSelection }
