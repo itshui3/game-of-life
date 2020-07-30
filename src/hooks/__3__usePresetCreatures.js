@@ -1,11 +1,11 @@
 import { useState, useCallback } from 'react'
-import { useProgressionGrid, useSelection } from '.'
+import { useProgression, useSelection } from '.'
 
 import Creatures from '../assets/creatureModels'
 
 import { spawnCreature } from '../helpers'
 
-const useProgressionGridwPresetCreatures = (rows, cols) => {
+const usePresetCreatures = (rows, cols) => {
     const [
         // grid
         grid, 
@@ -18,7 +18,7 @@ const useProgressionGridwPresetCreatures = (rows, cols) => {
         progress, 
         setProgress, 
         stopper
-    ] = useProgressionGrid(rows, cols)
+    ] = useProgression(rows, cols)
 
     const [selected, setSelected] = useSelection()
     const [placement, setPlacement] = useState(false)
@@ -95,4 +95,4 @@ const useProgressionGridwPresetCreatures = (rows, cols) => {
     ]
 }
 
-export { useProgressionGridwPresetCreatures }
+export { usePresetCreatures }
