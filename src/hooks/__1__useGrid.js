@@ -39,10 +39,7 @@ const useGrid = (cols, rows) => {
             ...grid,
             [nextGrid]: nextGenGrid
         })
-        // cases:
-        // 1] swapNextBuffer
-        // 2] lifeSwitch
-        // 3] reset
+
     }, [grid[current]])
 
 // potential candidate for useCallback
@@ -59,9 +56,8 @@ const useGrid = (cols, rows) => {
                 console.log('current reference did not match grids 1 or 2\nCurrent: ', cur)
         }
     }
-// what's a better name for a reset missing consumables? 
+
     const only_reset = () => {
-        // I need to call .stop() if in-progress
    
         let grid = {
             '1': [],

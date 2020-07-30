@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useGrid } from '.'
 
-const useProgressionGrid = (rows, cols) => {
+const useProgression = (rows, cols) => {
     const [grid, setGrid, current, swapNextBuffer, only_reset, lifeSwitch] = useGrid(rows, cols)
 
     const [progress, setProgress] = useState(false)
@@ -46,6 +46,7 @@ const useProgressionGrid = (rows, cols) => {
 
     }, [progress])
 
+// how can I scope the memoization all in the last hook? 
     const nextBuffer = useCallback(
         () => {
             if (!progress) { swapNextBuffer(current) }
@@ -79,4 +80,4 @@ const useProgressionGrid = (rows, cols) => {
     ]
 }
 
-export { useProgressionGrid }
+export { useProgression }
