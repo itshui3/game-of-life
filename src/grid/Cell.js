@@ -2,7 +2,7 @@
 // Takes cell state[From Controller] and renders CSS depicting living/dead state
 // [ToDo] Cell borders: (One problem to solve is when borders duplicate, will they overlap? Push units further apart?)
 
-import React, { useState, useEffect, useRef } from "react"
+import React from "react"
 import "./cell.css"
 
 const Cell = ({c, id, rowId, lastCol, lastRow, clickCell }) => {
