@@ -8,13 +8,14 @@ import './Canvas.css'
 
 function Canvas({ grid, clickCell }) {
 
-    const [rows, setRows] = useState([])
+    // fix 2
+    // const [rows, setRows] = useState([])
 
-    useEffect(() => {
-        if (grid === undefined) { return }
-        if (!grid.length) { return }
-        setRows(grid)
-    }, [grid])
+    // useEffect(() => {
+    //     if (grid === undefined) { return }
+    //     if (!grid.length) { return }
+    //     setRows(grid)
+    // }, [grid])
 
     return (
         <>
@@ -28,7 +29,7 @@ function Canvas({ grid, clickCell }) {
                 alignItems: 'center'
             }}>
             {
-                rows.length ? rows.map((r, i) => (
+                grid.length ? grid.map((r, i) => (
                     <Row
                         className = "row"
                         key = {i}
@@ -36,7 +37,7 @@ function Canvas({ grid, clickCell }) {
                         r = {r}
                         clickCell = {clickCell}
                         lastRow = {
-                            i === (rows.length-1)
+                            i === (grid.length-1)
                             ?   true
                             :   false
                         }
