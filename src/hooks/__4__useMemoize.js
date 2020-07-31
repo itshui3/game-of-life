@@ -24,14 +24,14 @@ const useMemoize = (rows, cols) => {
         generateCreatureAtCoords,
     ] = usePresetCreatures(rows, cols)
 
-    const memoizedGrid = useRef(currentGrid)
+    // const memoizedGrid = useRef(currentGrid)
 
-    useEffect(() => {
-        // deepCompareGrids should perform a deep-comparison of the values within each grid
-        if ( deepCompareGrids(currentGrid, memoizedGrid.current) ) { return }
-        memoizedGrid.current = currentGrid
+    // useEffect(() => {
+    //     // deepCompareGrids should perform a deep-comparison of the values within each grid
+    //     if ( deepCompareGrids(currentGrid, memoizedGrid.current) ) { return }
+    //     memoizedGrid.current = currentGrid
 
-    }, [currentGrid])
+    // }, [currentGrid])
 
     const clickCell = useCallback(
         (rowId, cellId) => {
@@ -65,7 +65,8 @@ const useMemoize = (rows, cols) => {
 
     return [
         // grid
-        memoizedGrid.current,
+        // memoizedGrid.current,
+        currentGrid,
         clickCell,
         // progression
         nextBuffer,

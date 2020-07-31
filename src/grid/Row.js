@@ -7,18 +7,20 @@ import Cell from './Cell'
 import './row.css'
 
 const Row = ({r, rId,lastRow, clickCell }) => {
-    const [cells, setCells] = useState([])
+    
+    // fix 1:
+    // const [cells, setCells] = useState([])
 
-    useEffect(() => {
-        if (r === undefined) { return }
-        setCells(r)
-    }, [r])
+    // useEffect(() => {
+    //     if (r === undefined) { return }
+    //     setCells(r)
+    // }, [r])
 
     return (
         <>
             <div className = 'row'>
             {
-                cells.length && cells.map((c, i) => (
+                r.length && r.map((c, i) => (
                     <Cell 
                         rowId = {rId}
                         key = {i} 
@@ -26,7 +28,7 @@ const Row = ({r, rId,lastRow, clickCell }) => {
                         c = {c} 
                         clickCell = {clickCell}
                         lastCol = {
-                            i === (cells.length-1)
+                            i === (r.length-1)
                             ?   true
                             :   false
                         }
