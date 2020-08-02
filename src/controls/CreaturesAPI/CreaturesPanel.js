@@ -16,6 +16,7 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
     return (
         <>
+
             <S.CreaturesPanel>
                 <OscillatorSelector 
                 selectionAPI={selectionAPI} />
@@ -26,6 +27,7 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
                 <CreatureFactory 
                 placementAPI={placementAPI} />
             </S.CreaturesPanel>
+            
         </>
     )
 }

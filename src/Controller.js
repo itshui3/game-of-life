@@ -52,7 +52,7 @@ const Controller = () => {
             </S.ControllerWrapper>
 
             <div>
-                RIP Conway, it was because of you that we are getting all the jobs. All the jobs are really your jobs. 
+                RIP Conway, it is because of you that we are getting the jobs. All the jobs are your jobs. 
             </div>
         </>
     )

@@ -1,3 +1,5 @@
-import { ProgressionPanel } from './ProgressionPanel.js'
+import { ProgressionPanel, ButtonWrapper } from './ProgressionPanel.js'
 
-export { ProgressionPanel }
+import { Letter, Word } from './Lettering.js'
+
+export { ProgressionPanel, ButtonWrapper, Letter, Word }

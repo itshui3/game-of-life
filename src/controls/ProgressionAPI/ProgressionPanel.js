@@ -6,9 +6,6 @@ import ResetButton from './ResetButton.js'
 import SetIntervalButton from './SetIntervalButton.js'
 // styles
 import * as S from './MyStyles'
-// inline styles
-import { progressBtn_styles } from '../controls[inliners]/control_wrapper'
-
 
 const ProgressionPanel = ({progressAPI}) => {
 
@@ -18,7 +15,6 @@ const ProgressionPanel = ({progressAPI}) => {
         <>
             <S.ProgressionPanel>
                 <ProgressButton
-                    style={progressBtn_styles}
                     nextBuffer={nextBuffer} 
                 />
                 <ResetButton

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const ControlPanel = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     max-width: 20%;
 `
 
