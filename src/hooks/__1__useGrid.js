@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { detectNeighbors, resolveNextGen } from '../helpers'
 
 const useGrid = (cols, rows) => {
@@ -35,6 +35,10 @@ const useGrid = (cols, rows) => {
         let nCountedGrid = detectNeighbors(grid[current])
         let nextGenGrid = resolveNextGen(grid[current], nCountedGrid)
 
+// setGrid re-makes a grid ref
+// and passing a new grid ref to lifeSwitch CB
+// passes a new lifeSwitch ref to clickCell
+// a new clickCell ref causes cell re-renders
         setGrid({
             ...grid,
             [nextGrid]: nextGenGrid
@@ -76,26 +80,53 @@ const useGrid = (cols, rows) => {
         setCurrent('1')
     }
 
-    const lifeSwitch = (rowId, cellId) => {
+    // const lifeSwitch = useCallback(
+    //     (rowId, cellId, current) => {
+    //         let switchedCell
 
-        let switchedCell
+    //         if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
+    //         else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
+    
+    //         let preSlice = grid[current].slice(0, rowId)
+    //         let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
+    //         let postSlice = grid[current].slice(rowId + 1)
+    //         preSlice.push(modRow)
+    
+    //         let newGrid = preSlice.concat(postSlice)
+    
+    //         setGrid({
+    //             ...grid,
+    //             [current]: newGrid
+    //         })
+    //     }, 
+    //     [current]
+    // )
 
-        if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
-        else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
+    const lifeSwitch = useCallback(
+        (rowId, cellId, current) => {
 
-        let preSlice = grid[current].slice(0, rowId)
-        let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
-        let postSlice = grid[current].slice(rowId + 1)
-        preSlice.push(modRow)
+            setGrid((grid) => {
 
-        let newGrid = preSlice.concat(postSlice)
+                let switchedCell
 
-        setGrid({
-            ...grid,
-            [current]: newGrid
-        })
+                if (grid[current][rowId][cellId] === 1) { switchedCell = 0 }
+                else if (grid[current][rowId][cellId] === 0) { switchedCell = 1 }
+        
+                let preSlice = grid[current].slice(0, rowId)
+                let modRow = grid[current][rowId].slice(0, cellId).concat([switchedCell].concat(grid[current][rowId].slice(cellId + 1)))
+                let postSlice = grid[current].slice(rowId + 1)
+                preSlice.push(modRow)
+        
+                let newGrid = preSlice.concat(postSlice)
 
-    }
+                return {
+                    ...grid,
+                    [current]: newGrid
+                }
+            })
+        }, 
+        []
+    )
 
     return [grid, setGrid, current, swapNextBuffer, only_reset, lifeSwitch]
 }

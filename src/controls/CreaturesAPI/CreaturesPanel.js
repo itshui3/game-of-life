@@ -9,14 +9,15 @@ import SpaceshipSelector from './SpaceshipSelector.js'
 import CreatureFactory from './CreatureFactory.js'
 // Cursor-fixed image
 import CreatureCursor from './CreatureCursor.js'
-// inline styles
-import { control_styles } from '../controls[inliners]/control_wrapper'
+// Styles
+import * as S from './MyStyle'
 
 const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
     return (
         <>
-            <div style={control_styles}>
+
+            <S.CreaturesPanel>
                 <OscillatorSelector 
                 selectionAPI={selectionAPI} />
 
@@ -25,7 +26,8 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
                 <CreatureFactory 
                 placementAPI={placementAPI} />
-            </div>
+            </S.CreaturesPanel>
+            
         </>
     )
 }

@@ -9,19 +9,24 @@ import React from "react"
 import ProgressionPanel from './ProgressionAPI/ProgressionPanel.js'
 // creatures panel
 import CreaturesPanel from './CreaturesAPI/CreaturesPanel.js'
+// styles
+import * as S from './MyStyle'
 
 const Controls = ({progressAPI, selectionAPI, placementAPI}) => {
 
     return (
         <>
-            <ProgressionPanel
-            progressAPI={progressAPI}
-            />
+            <S.ControlPanel>
 
-            <CreaturesPanel
-            selectionAPI={selectionAPI}
-            placementAPI={placementAPI}
-            />
+                <ProgressionPanel
+                progressAPI={progressAPI}
+                />
+                <CreaturesPanel
+                selectionAPI={selectionAPI}
+                placementAPI={placementAPI}
+                />
+                
+            </S.ControlPanel>
         </>
     )
 }
