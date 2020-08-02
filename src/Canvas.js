@@ -9,7 +9,7 @@ import './Canvas.css'
 // import * as S from './RyanStyle'
 import * as S from './MyStyle'
 
-function Canvas({ grid, clickCell }) {
+function Canvas({ grid, clickCell, current }) {
 
     return (
         <>
@@ -29,6 +29,7 @@ function Canvas({ grid, clickCell }) {
                                 ?   true
                                 :   false
                             }
+                            current = {current}
                         />
                     )) : null
                 }

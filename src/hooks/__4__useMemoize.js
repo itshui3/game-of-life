@@ -7,6 +7,7 @@ import { deepCompareGrids } from '../helpers'
 const useMemoize = (rows, cols) => {
     const [
         // grid
+        current,
         currentGrid,
         lifeSwitch,
         // progression
@@ -33,15 +34,24 @@ const useMemoize = (rows, cols) => {
 
     // }, [currentGrid])
 
+// why is clickCell changing? 
+// [placement, progress, selected, lifeSwitch, generateCreatureAtCoords]
+// checked:
+// generateCreatureAtCoords
+// lifeSwitch
+// selected - I don't think this will change from lifeSwitch [might need some way to check]
+// progress - I don't think this will change 
+// placement - I don't think this will change
     const clickCell = useCallback(
-        (rowId, cellId) => {
-            if (!placement && !progress) { return lifeSwitch(rowId, cellId) }
+        (rowId, cellId, current) => {
+            if (!placement && !progress) { return lifeSwitch(rowId, cellId, current) }
             if (placement) {
                 setPlacement(false)
-                return generateCreatureAtCoords(selected, [rowId, cellId])
+                return generateCreatureAtCoords(selected, [rowId, cellId], current)
             }
         },
-        [placement, progress, selected, lifeSwitch, generateCreatureAtCoords],
+        [placement, progress, selected, lifeSwitch, generateCreatureAtCoords, setPlacement],
+
     )
 
     const startProgress = useCallback(
@@ -60,12 +70,13 @@ const useMemoize = (rows, cols) => {
                     }
             }
         },
-        [placement, progress, stopper],
+        [placement, progress, stopper, setProgress],
     )
 
     return [
         // grid
         // memoizedGrid.current,
+        current,
         currentGrid,
         clickCell,
         // progression

@@ -9,7 +9,10 @@ const useProgression = (rows, cols) => {
 
 // quite a bit of lag here
     useEffect(() => {
-        if (progress !== true) { return }
+        if (progress !== true) { 
+            if (Object.keys(stopper).length) { stopper.stop() }
+            return 
+        }
 
         let continueProgress = true
 
@@ -57,12 +60,13 @@ const useProgression = (rows, cols) => {
 
     const reset = useCallback(
         () => {
-            if ( !(Object.entries(stopper).length === 0) ) {
-                stopper.stop()
-            }
+            // if ( !(Object.entries(stopper).length === 0) ) {
+            //     stopper.stop()
+            // }
+            setProgress(false)
             return only_reset()
         },
-        [stopper, only_reset]
+        [only_reset, setProgress]
     )
 
     return [

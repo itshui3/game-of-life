@@ -19,6 +19,7 @@ const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
     const [
         // grid
+        current,
         currentGrid,
         clickCell,
         // progression
@@ -40,6 +41,7 @@ const Controller = () => {
                 <Canvas
                 grid={currentGrid}
                 clickCell={clickCell}
+                current={current}
                 />
                 <Controls
                 // grid

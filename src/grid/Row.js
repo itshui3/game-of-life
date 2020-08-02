@@ -6,16 +6,7 @@ import React from 'react'
 import Cell from './Cell'
 import './row.css'
 
-const Row = ({r, rId,lastRow, clickCell }) => {
-
-    // fix 1:
-    // const [cells, setCells] = useState([])
-
-    // useEffect(() => {
-    //     if (r === undefined) { return }
-    //     setCells(r)
-    // }, [r])
-
+const Row = ({r, rId,lastRow, clickCell, current }) => {
     return (
         <>
             <div className = 'row'>
@@ -33,6 +24,7 @@ const Row = ({r, rId,lastRow, clickCell }) => {
                             :   false
                         }
                         lastRow = {lastRow}
+                        current={current}
                     />
                 ))
             }

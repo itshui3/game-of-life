@@ -20,8 +20,6 @@ const Reset = ({reset}) => {
                     <S.Word>t</S.Word>
                 </div>
             </S.ButtonWrapper>
-
-
         </>
     )
 }

@@ -2,17 +2,15 @@
 // Takes cell state[From Controller] and renders CSS depicting living/dead state
 // [ToDo] Cell borders: (One problem to solve is when borders duplicate, will they overlap? Push units further apart?)
 
-import React from "react"
+import React, { memo } from "react"
 import "./cell.css"
 
-const Cell = ({c, id, rowId, lastCol, lastRow, clickCell }) => {
+const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, current }) => {
 
-    // fix 0: 
-    // const [life, setlife] = useState()
-
-    // useEffect(() => {
-    //     setlife(c)
-    // }, [c])
+    // React.useEffect(() => {
+    //     // console.log(0)
+    //     console.log(typeof current)
+    // })
 
     return (
         <>
@@ -20,11 +18,11 @@ const Cell = ({c, id, rowId, lastCol, lastRow, clickCell }) => {
                 id = {id}
                 className = {`cell${c ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
                 onClick = { () => {
-                    clickCell(rowId, id)
+                    clickCell(rowId, id, current)
                 } }
             ></div>
         </>
     )
-}
+})
 
 export default Cell;

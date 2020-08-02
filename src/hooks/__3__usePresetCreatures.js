@@ -29,7 +29,7 @@ const usePresetCreatures = (rows, cols) => {
         (selection) => {
             setSelected(selection)
         },
-        []
+        [setSelected]
     )
 
     // puts grid in a state of 'awaiting creature'
@@ -55,28 +55,54 @@ const usePresetCreatures = (rows, cols) => {
         [selected, progress, placement]
     )
 
-    function generateCreatureAtCoords(creature, coords) {
-        let creatureGrid
+    // function generateCreatureAtCoords(creature, coords) {
+    //     let creatureGrid
 
-        if(creature['type'] === 'osc') {
-            creatureGrid = Creatures['oscillators'][creature['lifeform']]
-        } else if (creature['type'] === 'ss') {
-            creatureGrid = Creatures['spaceships'][creature['lifeform']]
-        }
+    //     if(creature['type'] === 'osc') {
+    //         creatureGrid = Creatures['oscillators'][creature['lifeform']]
+    //     } else if (creature['type'] === 'ss') {
+    //         creatureGrid = Creatures['spaceships'][creature['lifeform']]
+    //     }
 
-        let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
-        if (!creatureSpawnedGrid) { return }
+    //     let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
+    //     if (!creatureSpawnedGrid) { return }
 
-        setGrid({
-            ...grid,
-            [current]: creatureSpawnedGrid,
-        })
+    //     setGrid({
+    //         ...grid,
+    //         [current]: creatureSpawnedGrid,
+    //     })
 
-    }
+    // }
+
+    const generateCreatureAtCoords = useCallback(
+        (creature, coords, current) => {
+
+            setGrid( grid => {
+
+                let creatureGrid
+
+                if(creature['type'] === 'osc') {
+                    creatureGrid = Creatures['oscillators'][creature['lifeform']]
+                } else if (creature['type'] === 'ss') {
+                    creatureGrid = Creatures['spaceships'][creature['lifeform']]
+                }
+
+                let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
+                if (!creatureSpawnedGrid) { return }
+
+                return {
+                    ...grid,
+                    [current]: creatureSpawnedGrid
+                }
+            })
+        },
+        [setGrid]
+    )
 
 
     return [
         // grid
+        current,
         grid[current],
         lifeSwitch,
         // progression
