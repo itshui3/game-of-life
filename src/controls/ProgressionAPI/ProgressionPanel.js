@@ -1,11 +1,14 @@
 // top Level component for generational progression stuff
 import React from 'react'
-// inline styles
-import { control_styles, progressBtn_styles } from '../controls[inliners]/control_wrapper'
 // start/stop panel
 import ProgressButton from './ProgressButton.js'
 import ResetButton from './ResetButton.js'
 import SetIntervalButton from './SetIntervalButton.js'
+// styles
+import * as S from './MyStyles'
+// inline styles
+import { progressBtn_styles } from '../controls[inliners]/control_wrapper'
+
 
 const ProgressionPanel = ({progressAPI}) => {
 
@@ -13,7 +16,7 @@ const ProgressionPanel = ({progressAPI}) => {
 
     return (
         <>
-            <div style={control_styles}>
+            <S.ProgressionPanel>
                 <ProgressButton
                     style={progressBtn_styles}
                     nextBuffer={nextBuffer} 
@@ -24,7 +27,7 @@ const ProgressionPanel = ({progressAPI}) => {
                 <SetIntervalButton
                     startProgress={startProgress}
                 />
-            </div>
+            </S.ProgressionPanel>
         </>
     )
 }
