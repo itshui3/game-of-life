@@ -1,9 +1,9 @@
 // top Level component for generational progression stuff
 import React from 'react'
 // start/stop panel
-import ProgressButton from './ProgressButton.js'
-import ResetButton from './ResetButton.js'
-import SetIntervalButton from './SetIntervalButton.js'
+import Next from './Next.js'
+import Reset from './Reset.js'
+import Progress from './Progress.js'
 // styles
 import * as S from './MyStyles'
 
@@ -14,13 +14,13 @@ const ProgressionPanel = ({progressAPI}) => {
     return (
         <>
             <S.ProgressionPanel>
-                <ProgressButton
+                <Next
                     nextBuffer={nextBuffer} 
                 />
-                <ResetButton
+                <Reset
                     reset={reset}
                 />
-                <SetIntervalButton
+                <Progress
                     startProgress={startProgress}
                 />
             </S.ProgressionPanel>

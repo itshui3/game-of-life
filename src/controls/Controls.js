@@ -21,14 +21,12 @@ const Controls = ({progressAPI, selectionAPI, placementAPI}) => {
                 <ProgressionPanel
                 progressAPI={progressAPI}
                 />
-
                 <CreaturesPanel
                 selectionAPI={selectionAPI}
                 placementAPI={placementAPI}
                 />
                 
             </S.ControlPanel>
-
         </>
     )
 }

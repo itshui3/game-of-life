@@ -4,7 +4,7 @@ import React from 'react'
 
 import * as S from './MyStyles'
 
-const SetIntervalButton = ({startProgress}) => {
+const Progress = ({startProgress}) => {
 
     return (
         <>
@@ -28,4 +28,4 @@ const SetIntervalButton = ({startProgress}) => {
     )
 }
 
-export default SetIntervalButton
+export default Progress
