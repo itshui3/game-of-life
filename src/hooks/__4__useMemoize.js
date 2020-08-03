@@ -1,8 +1,6 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 
 import { usePresetCreatures } from '.'
-
-import { deepCompareGrids } from '../helpers'
 
 const useMemoize = (rows, cols) => {
     const [
@@ -25,23 +23,6 @@ const useMemoize = (rows, cols) => {
         generateCreatureAtCoords,
     ] = usePresetCreatures(rows, cols)
 
-    // const memoizedGrid = useRef(currentGrid)
-
-    // useEffect(() => {
-    //     // deepCompareGrids should perform a deep-comparison of the values within each grid
-    //     if ( deepCompareGrids(currentGrid, memoizedGrid.current) ) { return }
-    //     memoizedGrid.current = currentGrid
-
-    // }, [currentGrid])
-
-// why is clickCell changing? 
-// [placement, progress, selected, lifeSwitch, generateCreatureAtCoords]
-// checked:
-// generateCreatureAtCoords
-// lifeSwitch
-// selected - I don't think this will change from lifeSwitch [might need some way to check]
-// progress - I don't think this will change 
-// placement - I don't think this will change
     const clickCell = useCallback(
         (rowId, cellId, current) => {
             if (!placement && !progress) { return lifeSwitch(rowId, cellId, current) }

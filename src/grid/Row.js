@@ -2,11 +2,12 @@
 // Maps individual Cells into Cell Component
 // Generates individual cell ids[Need double-checking(might need another engineer)]
 
-import React from 'react'
+import React, { memo } from 'react'
 import Cell from './Cell'
 import './row.css'
 
-const Row = ({r, rId,lastRow, clickCell, current }) => {
+const Row = memo(({r, rId,lastRow, clickCell, current }) => {
+    // r, current creating re-render issues upon progression
     return (
         <>
             <div className = 'row'>
@@ -24,13 +25,13 @@ const Row = ({r, rId,lastRow, clickCell, current }) => {
                             :   false
                         }
                         lastRow = {lastRow}
-                        current={current}
+                        current = { current }
                     />
                 ))
             }
             </div>
         </>
     )
-}
+})
 
 export default Row

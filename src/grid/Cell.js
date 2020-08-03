@@ -7,10 +7,9 @@ import "./cell.css"
 
 const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, current }) => {
 
-    // React.useEffect(() => {
-    //     // console.log(0)
-    //     console.log(typeof current)
-    // })
+    React.useEffect(() => {
+        console.log(0)
+    })
 
     return (
         <>
@@ -18,8 +17,9 @@ const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, current }) => {
                 id = {id}
                 className = {`cell${c ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
                 onClick = { () => {
-                    clickCell(rowId, id, current)
+                    clickCell(rowId, id, current.value)
                 } }
+
             ></div>
         </>
     )
