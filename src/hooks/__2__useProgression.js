@@ -51,18 +51,15 @@ const useProgression = (rows, cols) => {
 
 // how can I scope the memoization all in the last hook? 
     const nextBuffer = useCallback(
-        () => {
+        (current) => {
             if (!progress) { swapNextBuffer(current) }
             else { console.log('cannot manually progress to the next generation while automatically progressing generations')}
         },
-        [progress, current]
+        [progress]
     )
 
     const reset = useCallback(
         () => {
-            // if ( !(Object.entries(stopper).length === 0) ) {
-            //     stopper.stop()
-            // }
             setProgress(false)
             return only_reset()
         },

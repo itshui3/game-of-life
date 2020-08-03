@@ -5,13 +5,13 @@ import React from "react"
 
 import * as S from './MyStyles'
 
-const Next = ({nextBuffer}) => {
+const Next = ({nextBuffer, current}) => {
 
     return (
         <>
             <S.ButtonWrapper>
                 <S.Letter 
-                    onClick={ nextBuffer }
+                    onClick={ () => nextBuffer(current) }
                 >N</S.Letter>
                 <div>
                     <S.Word>e</S.Word>

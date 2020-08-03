@@ -2,7 +2,7 @@
 // top level component
 // has all the things
 // bigCompo2020
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 // 2nd level components
 import CharCont from './CharCont.js'
 import Canvas from './Canvas.js'
@@ -12,8 +12,8 @@ import { useCustomGrid } from './hooks'
 // style
 import * as S from './MyStyle'
 
-const rows = 35
-const cols = 35
+const rows = 40
+const cols = 40
 
 const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
@@ -33,6 +33,14 @@ const Controller = () => {
         placeSelection
     ] = useCustomGrid(rows, cols)
 
+    const curRef = useRef({value: current})
+
+    useEffect(() => {
+        if ( curRef.current.value !== current ) {
+            curRef.current.value = current
+        }
+    }, [current])
+
     return (
         <>
             <S.ControllerWrapper>
@@ -41,11 +49,11 @@ const Controller = () => {
                 <Canvas
                 grid={currentGrid}
                 clickCell={clickCell}
-                current={current}
+                current={curRef.current}
                 />
                 <Controls
                 // grid
-                progressAPI={ {nextBuffer, reset, startProgress} }
+                progressAPI={ {nextBuffer, current, reset, startProgress} }
                 // creature
                 placementAPI={ {placement, placeSelection} }
                 selectionAPI={ {select, selected} }
