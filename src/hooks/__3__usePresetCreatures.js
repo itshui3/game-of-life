@@ -71,8 +71,11 @@ const usePresetCreatures = (rows, cols) => {
                 }
 
                 let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
-                console.log('csg', creatureSpawnedGrid)
+
                 if (!creatureSpawnedGrid) { 
+
+                    console.log('error, creature could not be spawned within grid parameters')
+
                     return {
                         ...grid
                     }
