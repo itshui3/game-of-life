@@ -71,8 +71,16 @@ const usePresetCreatures = (rows, cols) => {
                 }
 
                 let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)
-                if (!creatureSpawnedGrid) { return }
 
+                if (!creatureSpawnedGrid) { 
+
+                    console.log('error, creature could not be spawned within grid parameters')
+
+                    return {
+                        ...grid
+                    }
+                }
+// for some reason the grid returned isn't coming up as a grid
                 return {
                     ...grid,
                     [current]: creatureSpawnedGrid
