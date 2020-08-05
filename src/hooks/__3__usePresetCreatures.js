@@ -66,6 +66,8 @@ const usePresetCreatures = (rows, cols) => {
                     creatureGrid = Creatures['oscillators'][creature['lifeform']]
                 } else if (creature['type'] === 'ss') {
                     creatureGrid = Creatures['spaceships'][creature['lifeform']]
+                } else if (creature['type'] === 'tf') {
+                    creatureGrid = Creatures['terraforms'][creature['lifeform']]
                 }
 
                 let creatureSpawnedGrid = spawnCreature(creatureGrid, grid[current], coords)

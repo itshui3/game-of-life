@@ -23,18 +23,23 @@ const useMemoize = (rows, cols) => {
         generateCreatureAtCoords,
     ] = usePresetCreatures(rows, cols)
 
+// dependent on progress
     const clickCell = useCallback(
-        (rowId, cellId, current) => {
+        (rowId, cellId, current, progress, placement, selected) => {
             if (!placement && !progress) { return lifeSwitch(rowId, cellId, current) }
             if (placement) {
                 setPlacement(false)
                 return generateCreatureAtCoords(selected, [rowId, cellId], current)
             }
         },
-        [placement, progress, selected, lifeSwitch, generateCreatureAtCoords, setPlacement],
+        [lifeSwitch, generateCreatureAtCoords, setPlacement],
 
     )
 
+// this causes ClickCell to change [and possibly some hooks(?)]
+// things it could affect: 
+// sets progress to true if grid not moving
+// calls stopper.stop() if grid moving
     const startProgress = useCallback(
         () => {
             if (placement) {
@@ -61,6 +66,7 @@ const useMemoize = (rows, cols) => {
         currentGrid,
         clickCell,
         // progression
+        progress,
         nextBuffer,
         startProgress, 
         reset,

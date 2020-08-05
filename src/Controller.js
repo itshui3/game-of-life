@@ -12,8 +12,8 @@ import { useCustomGrid } from './hooks'
 // style
 import * as S from './MyStyle'
 
-const rows = 40
-const cols = 40
+const rows = 30
+const cols = 30
 
 const Controller = () => {
     // swapNextBuffer only used on this level, try to 'hide' it behind progression/nextGen
@@ -23,6 +23,7 @@ const Controller = () => {
         currentGrid,
         clickCell,
         // progression
+        progress,
         nextBuffer,
         startProgress, 
         reset,
@@ -34,12 +35,38 @@ const Controller = () => {
     ] = useCustomGrid(rows, cols)
 
     const curRef = useRef({value: current})
+    const curProg = useRef({value: progress})
+    const curPlac = useRef({value: placement})
+    const curSel = useRef({value: selected})
+    const refsAPI = useRef({
+        current: curRef.current, 
+        progress: curProg.current, 
+        placement: curPlac.current,
+        selected: curSel.current })
+
+    useEffect(() => {
+        if ( curProg.current.value !== progress ) {
+            curProg.current.value = progress
+        }
+    }, [progress])
 
     useEffect(() => {
         if ( curRef.current.value !== current ) {
             curRef.current.value = current
         }
     }, [current])
+
+    useEffect(() => {
+        if ( curPlac.current.value !== placement ) {
+            curPlac.current.value = placement
+        }
+    }, [placement])
+
+    useEffect(() => {
+        if ( curSel.current.value !== selected ) {
+            curSel.current.value = selected
+        }
+    }, [selected])
 
     return (
         <>
@@ -49,7 +76,7 @@ const Controller = () => {
                 <Canvas
                 grid={currentGrid}
                 clickCell={clickCell}
-                current={curRef.current}
+                refsAPI={ refsAPI }
                 />
                 <Controls
                 // grid

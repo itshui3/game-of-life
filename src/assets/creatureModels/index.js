@@ -1,6 +1,8 @@
 import { oscillators } from './oscillators.js'
 import { spaceships } from './spaceships.js'
 
-const Creatures = { oscillators, spaceships }
+import { terraforms } from './terraforms.js'
+
+const Creatures = { oscillators, spaceships, terraforms }
 
 export default Creatures

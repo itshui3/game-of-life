@@ -5,11 +5,13 @@
 import React, { memo } from "react"
 import "./cell.css"
 
-const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, current }) => {
+const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, refsAPI }) => {
 
     React.useEffect(() => {
         console.log(0)
     })
+
+    const { current, progress, placement, selected } = refsAPI.current
 
     return (
         <>
@@ -17,7 +19,14 @@ const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, current }) => {
                 id = {id}
                 className = {`cell${c ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
                 onClick = { () => {
-                    clickCell(rowId, id, current.value)
+                    clickCell(
+                        rowId, 
+                        id, 
+                        current.value, 
+                        progress.value, 
+                        placement.value,
+                        selected.value
+                    )
                 } }
 
             ></div>
