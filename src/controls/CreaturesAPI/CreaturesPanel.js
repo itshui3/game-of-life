@@ -5,6 +5,7 @@ import React from 'react'
 // Selectors
 import OscillatorSelector from './OscillatorSelector.js'
 import SpaceshipSelector from './SpaceshipSelector.js'
+import TerraformSelector from './TerraformSelector.js'
 // Creature Factory/Recycling
 import CreatureFactory from './CreatureFactory.js'
 // Cursor-fixed image
@@ -24,8 +25,12 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
                 <SpaceshipSelector 
                 selectionAPI={selectionAPI} />
 
+                <TerraformSelector
+                selectionAPI={selectionAPI} />
+
                 <CreatureFactory 
                 placementAPI={placementAPI} />
+                
             </S.CreaturesPanel>
             
         </>

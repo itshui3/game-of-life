@@ -6,7 +6,7 @@ import React, { memo } from 'react'
 import Cell from './Cell'
 import './row.css'
 
-const Row = memo(({r, rId,lastRow, clickCell, current }) => {
+const Row = memo(({r, rId,lastRow, clickCell, refsAPI }) => {
     // r, current creating re-render issues upon progression
     return (
         <>
@@ -24,8 +24,9 @@ const Row = memo(({r, rId,lastRow, clickCell, current }) => {
                             ?   true
                             :   false
                         }
+                        refsAPI = {refsAPI}
                         lastRow = {lastRow}
-                        current = { current }
+
                     />
                 ))
             }

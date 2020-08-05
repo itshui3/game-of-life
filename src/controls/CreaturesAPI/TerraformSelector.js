@@ -1,13 +1,13 @@
-// A dropdown menu for selecting Oscillators to populate grid[current]
+// A dropdown menu for selecting terraforms to populate grid[current]
 import React, { useState, useEffect } from 'react'
 
-const SpaceshipSelector = ({selectionAPI}) => {
+const TerraformSelector = ({selectionAPI}) => {
 
     const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
     
     useEffect(() => {
-        if (selected.type === 'ss') {
+        if (selected.type === 'tf') {
             setRenderSelection(selected.lifeform)
         } else {
             setRenderSelection('none')
@@ -16,7 +16,7 @@ const SpaceshipSelector = ({selectionAPI}) => {
 
     const parseSelection = ev => {
         let newSelection = {
-            type: 'ss',
+            type: 'tf',
             lifeform: ev.target.value
         }
         select(newSelection)
@@ -24,18 +24,17 @@ const SpaceshipSelector = ({selectionAPI}) => {
 
     return (
         <>
-            <label htmlFor = 'spaceships'>Select a Spaceship</label>
+            <label htmlFor = 'terraforms'>Select a Terraform</label>
 
             <select 
-            id='spaceships' 
+            id='terraform' 
             onChange={parseSelection} 
             value={renderSelection}>
                 <option value='none'>None</option>
-                <option value='glider'>Glider</option>
-                <option value='lwss'>Lightweight Spaceship</option>
+                <option value='grid_30x30'>30 x 30 Grid</option>
             </select>
         </>
     )
 }
 
-export default SpaceshipSelector
+export default TerraformSelector

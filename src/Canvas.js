@@ -9,16 +9,10 @@ import './Canvas.css'
 // import * as S from './RyanStyle'
 import * as S from './MyStyle'
 
-const Canvas = memo(({ grid, clickCell, current }) => {
-    // I don't want my components to care about double-buffer
-    // I just want to know which cells have changed
-    // 1 Problem is performing deepChecks seem to create more time complexity
-
-    // how is switching 1 cell should require causing a re-render
+const Canvas = memo(({ grid, clickCell, refsAPI }) => {
 
     return (
         <>
-        {/* bring a styled component in, in place of this div */}
 
             <S.Grid>
                 {
@@ -34,7 +28,7 @@ const Canvas = memo(({ grid, clickCell, current }) => {
                                 ?   true
                                 :   false
                             }
-                            current = {current}
+                            refsAPI = {refsAPI}
                         />
                     )) : null
                 }

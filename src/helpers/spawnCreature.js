@@ -5,37 +5,6 @@
 // 6x6 grid
 import { cloneGrid } from './cloneGrid.js'
 
-// testData
-let sampleGrid = [
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0],
-]
-
-// vertical blinker
-const blinker = [
-    [1],
-    [1],
-    [1]
-]
-
-// horizontal toad
-const toad = [
-    [0, 1, 1, 1],
-    [1, 1, 1, 0]
-]
-
-// beacon
-const beacon = [
-    [1, 1, 0, 0],
-    [1, 1, 0, 0],
-    [0, 0, 1, 1],
-    [0, 0, 1, 1]
-]
-
 function surveyOrigin(dimensions, grid, origin) {
     let creature_height = dimensions[0]
     let creature_width = dimensions[1]
@@ -51,6 +20,7 @@ function surveyOrigin(dimensions, grid, origin) {
 function spawnCreature(creature, grid, origin) {
     console.log('creature', creature)
     let dimensions = [creature.length, creature[0].length] // [r, c]
+    // check this fn for errors
     if (!surveyOrigin(dimensions, grid, origin)) { return false }
 
     // else return a new grid that gets set as grid[current]
