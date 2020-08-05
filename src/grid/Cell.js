@@ -5,6 +5,8 @@
 import React, { memo } from "react"
 import "./cell.css"
 
+import { calculateColor } from '../helpers'
+
 const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, refsAPI }) => {
 
     React.useEffect(() => {
@@ -17,7 +19,10 @@ const Cell = memo(({c, id, rowId, lastCol, lastRow, clickCell, refsAPI }) => {
         <>
             <div 
                 id = {id}
-                className = {`cell${c ? ' living' : ' dead'}${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
+                className = {`cell ${lastCol ? ' rightCol' : ''}${lastRow ? ' bottomRow' : ''}`}
+                style = {
+                    {backgroundColor: `${c ? calculateColor(rowId, id) : 'white' }`}
+                }
                 onClick = { () => {
                     clickCell(
                         rowId, 
