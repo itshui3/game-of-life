@@ -4,23 +4,23 @@ import React from 'react'
 
 import * as S from './MyStyles'
 
-const Progress = ({startProgress}) => {
+const Progress = ({startProgress, progress}) => {
+
+    React.useEffect(() => {
+        console.log('progress in prog button', progress)
+    }, [progress])
 
     return (
         <>
             <S.ButtonWrapper>
                 <S.Letter 
                     onClick={ startProgress }
-                >P</S.Letter>
-                <div>
-                    <S.Word>r</S.Word>
-                    <S.Word>o</S.Word>
-                    <S.Word>g</S.Word>
-                    <S.Word>r</S.Word>
-                    <S.Word>e</S.Word>
-                    <S.Word>s</S.Word>
-                    <S.Word>s</S.Word>
-                </div>
+                >{
+                    progress
+                    ? 'Stop'
+                    : 'Start'
+                }</S.Letter>
+
             </S.ButtonWrapper>
 
 

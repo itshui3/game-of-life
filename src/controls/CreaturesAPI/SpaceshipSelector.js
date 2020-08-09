@@ -24,7 +24,7 @@ const SpaceshipSelector = ({selectionAPI}) => {
 
     return (
         <>
-            <label htmlFor = 'spaceships'>Select a Spaceship</label>
+            <label htmlFor = 'spaceships'>Spaceship</label>
 
             <select 
             id='spaceships' 

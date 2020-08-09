@@ -4,7 +4,6 @@
 // bigCompo2020
 import React, { useRef, useEffect } from 'react';
 // 2nd level components
-import CharCont from './CharCont.js'
 import Canvas from './Canvas.js'
 import Controls from './controls/Controls'
 // hooks
@@ -72,7 +71,7 @@ const Controller = () => {
         <>
             <S.ControllerWrapper>
 
-                <CharCont />
+                {/* <CharCont /> */}
                 <Canvas
                 grid={currentGrid}
                 clickCell={clickCell}
@@ -80,7 +79,7 @@ const Controller = () => {
                 />
                 <Controls
                 // grid
-                progressAPI={ {nextBuffer, current, reset, startProgress} }
+                progressAPI={ {nextBuffer, current, reset, startProgress, progress} }
                 // creature
                 placementAPI={ {placement, placeSelection} }
                 selectionAPI={ {select, selected} }
