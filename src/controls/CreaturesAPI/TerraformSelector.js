@@ -24,7 +24,7 @@ const TerraformSelector = ({selectionAPI}) => {
 
     return (
         <>
-            <label htmlFor = 'terraforms'>Select a Terraform</label>
+            <label htmlFor = 'terraforms'>Terraform</label>
 
             <select 
             id='terraform' 

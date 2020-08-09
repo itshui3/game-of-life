@@ -12,12 +12,7 @@ const Next = ({nextBuffer, current}) => {
             <S.ButtonWrapper>
                 <S.Letter 
                     onClick={ () => nextBuffer(current) }
-                >N</S.Letter>
-                <div>
-                    <S.Word>e</S.Word>
-                    <S.Word>x</S.Word>
-                    <S.Word>t</S.Word>
-                </div>
+                >Step</S.Letter>
             </S.ButtonWrapper>
 
 

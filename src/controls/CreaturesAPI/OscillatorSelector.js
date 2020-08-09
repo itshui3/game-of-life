@@ -24,7 +24,7 @@ const OscillatorSelector = ({ selectionAPI }) => {
 
     return (
         <>
-            <label htmlFor = 'oscillators'>Select an Oscillator</label>
+            <label htmlFor = 'oscillators'>Oscillator</label>
 
             <select id = 'oscillators' onChange={parseSelection} value={renderSelection}>
                 <option value='none'>None</option>

@@ -1,12 +1,20 @@
 import styled from 'styled-components'
 
-const Letter = styled.h2`
-    font-size: 50px;
-    border: 1px solid black;
-`
-
-const Word = styled.p`
+const Letter = styled.button`
     font-size: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 150px;
+    height: 40px;
+    &:hover {
+        color: white;
+        background-color: black;
+    }
+    &:active {
+        color: black;
+        background-color: white;
+        font-size: 23px;
+    }
 `
 
-export { Letter, Word }
+export { Letter }

@@ -12,13 +12,8 @@ const Reset = ({reset}) => {
             <S.ButtonWrapper>
                 <S.Letter 
                     onClick={ reset }
-                >R</S.Letter>
-                <div>
-                    <S.Word>e</S.Word>
-                    <S.Word>s</S.Word>
-                    <S.Word>e</S.Word>
-                    <S.Word>t</S.Word>
-                </div>
+                >Reset</S.Letter>
+
             </S.ButtonWrapper>
         </>
     )

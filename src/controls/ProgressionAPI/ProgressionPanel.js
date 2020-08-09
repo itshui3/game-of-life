@@ -9,7 +9,7 @@ import * as S from './MyStyles'
 
 const ProgressionPanel = ({progressAPI}) => {
 
-    const { nextBuffer, current, reset, startProgress } = progressAPI
+    const { nextBuffer, current, reset, startProgress, progress } = progressAPI
 
     return (
         <>
@@ -23,6 +23,7 @@ const ProgressionPanel = ({progressAPI}) => {
                 />
                 <Progress
                     startProgress={startProgress}
+                    progress={progress}
                 />
             </S.ProgressionPanel>
         </>
