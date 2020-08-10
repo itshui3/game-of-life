@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
-const CreaturesPanel = styled.div`
+const CreaturesWrapper = styled.div`
     display: flex;
     flex-direction: column;
+`
+
+const CreaturesPanel = styled.div`
+    display: flex;
+    flex-direction: row;
     margin: 0px 25px;
 `
 
-export { CreaturesPanel }
+export { CreaturesPanel, CreaturesWrapper }

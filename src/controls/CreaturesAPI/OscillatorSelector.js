@@ -1,5 +1,7 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
 import React, { useState, useEffect } from 'react'
+// styled
+import * as S from './MyStyle'
 
 const OscillatorSelector = ({ selectionAPI }) => {
 
@@ -24,14 +26,23 @@ const OscillatorSelector = ({ selectionAPI }) => {
 
     return (
         <>
-            <label htmlFor = 'oscillators'>Oscillator</label>
+            <S.SelectorCont>
+                <S.SelectButton>Oscillator</S.SelectButton>
+                {/* 
+                    1] Expect OnClick to dropdown options 
+                    2] 
+                */}
 
-            <select id = 'oscillators' onChange={parseSelection} value={renderSelection}>
-                <option value='none'>None</option>
-                <option value='blinker'>Blinker</option>
-                <option value='toad'>Toad</option>
-                <option value='beacon'>Beacon</option>
-            </select>
+                <select 
+                id = 'oscillators' 
+                onChange={parseSelection} 
+                value={renderSelection}>
+                    <option value='none'>None</option>
+                    <option value='blinker'>Blinker</option>
+                    <option value='toad'>Toad</option>
+                    <option value='beacon'>Beacon</option>
+                </select>
+            </S.SelectorCont>
 
         </>
     )
