@@ -38,9 +38,9 @@ const GoLTextCont = styled.div`
 `
 
 const GoLText = styled.h2`
-    font-size: 150px;
+    font-size: 200px;
     opacity: 1;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Cute Font', cursive;
     color: #204051;
     z-index: 0;
 `
