@@ -15,6 +15,13 @@ const Canvas = memo(({ grid, clickCell, refsAPI }) => {
         <>
 
             <S.Grid>
+                
+                <S.GoLTextCont>
+                    <S.GoLText>Game</S.GoLText>
+                    <S.GoLText>Of</S.GoLText>
+                    <S.GoLText>Life</S.GoLText>
+                </S.GoLTextCont>
+                
                 {
                     grid.length ? grid.map((r, i) => (
                         <Row

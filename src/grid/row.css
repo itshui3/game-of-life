@@ -1,3 +1,5 @@
 .row {
     display: flex;
+    z-index: 1;
+    opacity: .7;
 }
