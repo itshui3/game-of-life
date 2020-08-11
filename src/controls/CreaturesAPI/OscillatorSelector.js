@@ -3,9 +3,11 @@ import React, { useState, useEffect } from 'react'
 // styled
 import * as S from './MyStyle'
 
-const OscillatorSelector = ({ selectionAPI }) => {
+const OscillatorSelector = ({ selectionAPI, options }) => {
 
     const {select, selected} = selectionAPI
+    const {optionActive, setOptionActive} = options
+    const [showOscillators, setShowOscillators] = useState(false)
     const [renderSelection, setRenderSelection] = useState('')
 
     useEffect(() => {
@@ -24,16 +26,50 @@ const OscillatorSelector = ({ selectionAPI }) => {
         select(newSelection)
     }
 
+    const toggleOscillatorsDisplay = () => {
+        if (showOscillators) { 
+            setShowOscillators(false) 
+            setOptionActive(false)
+        }
+        else if (!showOscillators && !optionActive) { 
+            setShowOscillators(true) 
+            setOptionActive(true)
+        }
+    }
+
+    const visible = {
+        visibility: !showOscillators ? 'collapse' : 'visible',
+        zIndex: !showOscillators ? 0 : 2
+        
+    }
+
     return (
         <>
             <S.SelectorCont>
-                <S.SelectButton>Oscillator</S.SelectButton>
-                {/* 
-                    1] Expect OnClick to dropdown options 
-                    2] 
-                */}
+                <S.SelectButton
+                onClick={toggleOscillatorsDisplay}
+                >Oscillator</S.SelectButton>
 
-                <select 
+                <S.OscillatorsCont style={visible}>
+                    <S.OptionButton
+                    style={visible}
+                    >
+                        Blinker
+                    </S.OptionButton>
+                    <S.OptionButton
+                    style={visible}
+                    >
+                        Toad
+                    </S.OptionButton>
+                    <S.OptionButton
+                    style={visible}
+                    >
+                        Beacon
+                    </S.OptionButton>
+                </S.OscillatorsCont>
+
+
+                {/* <select 
                 id = 'oscillators' 
                 onChange={parseSelection} 
                 value={renderSelection}>
@@ -41,7 +77,7 @@ const OscillatorSelector = ({ selectionAPI }) => {
                     <option value='blinker'>Blinker</option>
                     <option value='toad'>Toad</option>
                     <option value='beacon'>Beacon</option>
-                </select>
+                </select> */}
             </S.SelectorCont>
 
         </>
