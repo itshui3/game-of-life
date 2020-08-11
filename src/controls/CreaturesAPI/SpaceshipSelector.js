@@ -5,8 +5,8 @@ import * as S from './MyStyle'
 
 const SpaceshipSelector = ({selectionAPI}) => {
 
-    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
+    const {select, selected} = selectionAPI
     
     useEffect(() => {
         if (selected.type === 'ss') {

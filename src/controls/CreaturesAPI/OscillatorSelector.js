@@ -5,8 +5,9 @@ import * as S from './MyStyle'
 
 const OscillatorSelector = ({ selectionAPI }) => {
 
-    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
+    const [choiceDrop, setChoiceDrop] = useState(false)
+    const {select, selected} = selectionAPI
 
     useEffect(() => {
         if (selected.type === 'osc') {
@@ -21,16 +22,30 @@ const OscillatorSelector = ({ selectionAPI }) => {
             type: 'osc',
             lifeform: ev.target.value
         }
+        // select expects ^
         select(newSelection)
+    }
+
+    const showChoices = (ev) => {
+        setChoiceDrop(true)
+    }
+
+    const hideChoices = (ev) => {
+        setChoiceDrop(false)
     }
 
     return (
         <>
             <S.SelectorCont>
-                <S.SelectButton>Oscillator</S.SelectButton>
+                <S.SelectButton
+                onClick={showChoices}
+                onBlur={hideChoices}
+                >Oscillator</S.SelectButton>
                 {/* 
-                    1] Expect OnClick to dropdown options 
-                    2] 
+                    1] Expect OnClick to show dropup options 
+                    2] Expect onBlur to hide dropup options
+                    3] Expect DropUp options to exceed bottom panel bounds
+                    4] Expect DropUp options to have z-index priority
                 */}
 
                 <select 
