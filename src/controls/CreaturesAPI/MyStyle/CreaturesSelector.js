@@ -1,11 +1,16 @@
 import styled from 'styled-components'
 
-const Letter = styled.button`
+const SelectorCont = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const SelectButton = styled.button`
     color: #204051;
     font-size: 20px;
     border: 1px solid #204051;
     border-radius: 5px;
-    width: 80px;
+    width: 150px;
     height: 40px;
     &:hover {
         color: #e4e3e3;
@@ -18,4 +23,4 @@ const Letter = styled.button`
     }
 `
 
-export { Letter }
+export { SelectButton, SelectorCont }

@@ -1,10 +1,12 @@
 // A dropdown menu for selecting terraforms to populate grid[current]
 import React, { useState, useEffect } from 'react'
+// styled
+import * as S from './MyStyle'
 
 const TerraformSelector = ({selectionAPI}) => {
 
-    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
+    const {select, selected} = selectionAPI
     
     useEffect(() => {
         if (selected.type === 'tf') {
@@ -24,15 +26,18 @@ const TerraformSelector = ({selectionAPI}) => {
 
     return (
         <>
-            <label htmlFor = 'terraforms'>Terraform</label>
+            <S.SelectorCont>
+                <S.SelectButton>Terraform</S.SelectButton>
 
-            <select 
-            id='terraform' 
-            onChange={parseSelection} 
-            value={renderSelection}>
-                <option value='none'>None</option>
-                <option value='grid_30x30'>30 x 30 Grid</option>
-            </select>
+                <select 
+                id='terraform' 
+                onChange={parseSelection} 
+                value={renderSelection}>
+                    <option value='none'>None</option>
+                    <option value='grid_30x30'>30 x 30 Grid</option>
+                </select>
+            </S.SelectorCont>
+
         </>
     )
 }

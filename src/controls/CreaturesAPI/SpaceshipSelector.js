@@ -1,10 +1,12 @@
 // A dropdown menu for selecting Oscillators to populate grid[current]
 import React, { useState, useEffect } from 'react'
+// styled
+import * as S from './MyStyle'
 
 const SpaceshipSelector = ({selectionAPI}) => {
 
-    const {select, selected} = selectionAPI
     const [renderSelection, setRenderSelection] = useState('')
+    const {select, selected} = selectionAPI
     
     useEffect(() => {
         if (selected.type === 'ss') {
@@ -24,16 +26,19 @@ const SpaceshipSelector = ({selectionAPI}) => {
 
     return (
         <>
-            <label htmlFor = 'spaceships'>Spaceship</label>
+            <S.SelectorCont>
+                <S.SelectButton>Spaceship</S.SelectButton>
 
-            <select 
-            id='spaceships' 
-            onChange={parseSelection} 
-            value={renderSelection}>
-                <option value='none'>None</option>
-                <option value='glider'>Glider</option>
-                <option value='lwss'>Lightweight Spaceship</option>
-            </select>
+                <select 
+                id='spaceships' 
+                onChange={parseSelection} 
+                value={renderSelection}>
+                    <option value='none'>None</option>
+                    <option value='glider'>Glider</option>
+                    <option value='lwss'>Lightweight Spaceship</option>
+                </select>
+            </S.SelectorCont>
+
         </>
     )
 }

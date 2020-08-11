@@ -8,8 +8,6 @@ import SpaceshipSelector from './SpaceshipSelector.js'
 import TerraformSelector from './TerraformSelector.js'
 // Creature Factory/Recycling
 import CreatureFactory from './CreatureFactory.js'
-// Cursor-fixed image
-import CreatureCursor from './CreatureCursor.js'
 // Styles
 import * as S from './MyStyle'
 
@@ -17,22 +15,24 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
     return (
         <>
+            <S.CreaturesWrapper>
 
-            <S.CreaturesPanel>
-                <OscillatorSelector 
-                selectionAPI={selectionAPI} />
+                <CreatureFactory placementAPI={placementAPI} />
 
-                <SpaceshipSelector 
-                selectionAPI={selectionAPI} />
+                <S.CreaturesPanel>
 
-                <TerraformSelector
-                selectionAPI={selectionAPI} />
+                    <OscillatorSelector 
+                    selectionAPI={selectionAPI} />
 
-                <CreatureFactory 
-                placementAPI={placementAPI} />
+                    <SpaceshipSelector 
+                    selectionAPI={selectionAPI} />
+
+                    <TerraformSelector
+                    selectionAPI={selectionAPI} />
+
+                </S.CreaturesPanel>
                 
-            </S.CreaturesPanel>
-            
+            </S.CreaturesWrapper>
         </>
     )
 }

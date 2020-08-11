@@ -1,3 +1,4 @@
-import { CreaturesPanel } from './CreaturesPanel.js'
+import { CreaturesPanel, CreaturesWrapper } from './CreaturesPanel.js'
+import { SelectButton, SelectorCont } from './CreaturesSelector.js'
 
-export { CreaturesPanel }
+export { CreaturesPanel, SelectButton, SelectorCont, CreaturesWrapper}
