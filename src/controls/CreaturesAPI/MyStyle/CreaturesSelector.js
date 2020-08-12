@@ -37,7 +37,6 @@ const OptionsCont = styled.div`
 const OscillatorsCont = styled(OptionsCont)``
 
 const SpaceshipsCont = styled(OptionsCont)`
-    left: -75px;
 `
 
 const TerraformsCont = styled(OptionsCont)`

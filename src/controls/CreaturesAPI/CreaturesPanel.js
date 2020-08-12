@@ -19,8 +19,6 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
         <>
             <S.CreaturesWrapper>
 
-                <CreatureFactory placementAPI={placementAPI} />
-
                 <S.CreaturesPanel>
 
                     <OscillatorSelector 
@@ -39,6 +37,8 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
                     />
 
                 </S.CreaturesPanel>
+
+                <CreatureFactory placementAPI={placementAPI} />
                 
             </S.CreaturesWrapper>
         </>

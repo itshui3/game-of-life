@@ -3,6 +3,8 @@
 // 2. sets 'placement' state true
 // 3. loads creature into state
 import React from 'react'
+// style
+import * as S from './MyStyle'
 
 const CreatureFactory = ({placementAPI}) => {
 
@@ -10,9 +12,9 @@ const CreatureFactory = ({placementAPI}) => {
 
     return (
         <>
-            <button onClick={placeSelection} >{
+            <S.CreaturesHeader onClick={placeSelection} >{
             placement ? 'DisposeCreature' : 'CreatureFactory'
-            }</button>
+            }</S.CreaturesHeader>
         </>
     )
 }
