@@ -3,27 +3,41 @@ import React, { useState, useEffect } from 'react'
 // styled
 import * as S from './MyStyle'
 
-const OscillatorSelector = ({ selectionAPI }) => {
+const OscillatorSelector = ({ selectionAPI, placementAPI, options }) => {
 
-    const [renderSelection, setRenderSelection] = useState('')
-    const [choiceDrop, setChoiceDrop] = useState(false)
     const {select, selected} = selectionAPI
+    const {placeSelection, placement} = placementAPI
+    const {optionActive, setOptionActive} = options
+    const [showOscillators, setShowOscillators] = useState(false)
 
-    useEffect(() => {
-        if (selected.type === 'osc') {
-            setRenderSelection(selected.lifeform)
-        } else {
-            setRenderSelection('none')
-        }
-    }, [selected['lifeform']])
+    const parseSelection = (ev) => {
 
-    const parseSelection = ev => {
+        toggleOscillatorsDisplay()
         let newSelection = {
             type: 'osc',
-            lifeform: ev.target.value
+            lifeform: ev.target.name
         }
         // select expects ^
         select(newSelection)
+        placeSelection()
+    }
+
+    const toggleOscillatorsDisplay = () => {
+
+        if (showOscillators) { 
+            setShowOscillators(false) 
+            setOptionActive(false)
+        }
+        else if (!showOscillators && !optionActive) { 
+            setShowOscillators(true) 
+            setOptionActive(true)
+        }
+    }
+
+    const visible = {
+        visibility: !showOscillators ? 'collapse' : 'visible',
+        zIndex: !showOscillators ? 0 : 2
+        
     }
 
     const showChoices = (ev) => {
@@ -38,25 +52,35 @@ const OscillatorSelector = ({ selectionAPI }) => {
         <>
             <S.SelectorCont>
                 <S.SelectButton
-                onClick={showChoices}
-                onBlur={hideChoices}
+                onClick={
+                    !placement ? toggleOscillatorsDisplay : null
+                }
                 >Oscillator</S.SelectButton>
-                {/* 
-                    1] Expect OnClick to show dropup options 
-                    2] Expect onBlur to hide dropup options
-                    3] Expect DropUp options to exceed bottom panel bounds
-                    4] Expect DropUp options to have z-index priority
-                */}
 
-                <select 
-                id = 'oscillators' 
-                onChange={parseSelection} 
-                value={renderSelection}>
-                    <option value='none'>None</option>
-                    <option value='blinker'>Blinker</option>
-                    <option value='toad'>Toad</option>
-                    <option value='beacon'>Beacon</option>
-                </select>
+                <S.OscillatorsCont style={visible}>
+                    <S.OptionButton
+                    style={visible}
+                    name='blinker'
+                    onClick={parseSelection}
+                    >
+                        Blinker
+                    </S.OptionButton>
+                    <S.OptionButton
+                    style={visible}
+                    name='toad'
+                    onClick={parseSelection}
+                    >
+                        Toad
+                    </S.OptionButton>
+                    <S.OptionButton
+                    style={visible}
+                    name='beacon'
+                    onClick={parseSelection}
+                    >
+                        Beacon
+                    </S.OptionButton>
+                </S.OscillatorsCont>
+
             </S.SelectorCont>
 
         </>

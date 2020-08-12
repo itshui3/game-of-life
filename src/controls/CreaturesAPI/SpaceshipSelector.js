@@ -3,40 +3,69 @@ import React, { useState, useEffect } from 'react'
 // styled
 import * as S from './MyStyle'
 
-const SpaceshipSelector = ({selectionAPI}) => {
+const SpaceshipSelector = ({selectionAPI, placementAPI, options}) => {
 
-    const [renderSelection, setRenderSelection] = useState('')
+
     const {select, selected} = selectionAPI
-    
-    useEffect(() => {
-        if (selected.type === 'ss') {
-            setRenderSelection(selected.lifeform)
-        } else {
-            setRenderSelection('none')
-        }
-    }, [selected['lifeform']])
+    const {placeSelection, placement} = placementAPI
+    const {optionActive, setOptionActive} = options
+    const [showSpaceships, setShowSpaceships] = useState(false)
 
     const parseSelection = ev => {
+
+        toggleSpaceshipsDisplay()
         let newSelection = {
             type: 'ss',
-            lifeform: ev.target.value
+            lifeform: ev.target.name
         }
         select(newSelection)
+        placeSelection()
+    }
+
+    const toggleSpaceshipsDisplay = () => {
+        if (showSpaceships) { 
+            setShowSpaceships(false) 
+            setOptionActive(false)
+        }
+        else if (!showSpaceships && !optionActive) { 
+            setShowSpaceships(true) 
+            setOptionActive(true)
+        }
+    }
+
+    const visible = {
+        visibility: !showSpaceships ? 'collapse' : 'visible',
+        zIndex: !showSpaceships ? 0 : 2
+        
     }
 
     return (
         <>
             <S.SelectorCont>
-                <S.SelectButton>Spaceship</S.SelectButton>
+                <S.SelectButton
+                onClick={
+                    !placement ? toggleSpaceshipsDisplay : null
+                }
+                >Spaceship</S.SelectButton>
 
-                <select 
-                id='spaceships' 
-                onChange={parseSelection} 
-                value={renderSelection}>
-                    <option value='none'>None</option>
-                    <option value='glider'>Glider</option>
-                    <option value='lwss'>Lightweight Spaceship</option>
-                </select>
+                <S.SpaceshipsCont style={visible}>
+                    <S.OptionButton
+                    style={visible}
+                    name='glider'
+                    onClick={parseSelection}
+                    >
+                        Glider
+                    </S.OptionButton>
+                    <S.OptionButton
+                    style={visible}
+                    name='lwss'
+                    onClick={parseSelection}
+                    >
+                        Lightweight Spaceship
+                    </S.OptionButton>
+
+                </S.SpaceshipsCont>
+
             </S.SelectorCont>
 
         </>

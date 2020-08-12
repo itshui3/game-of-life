@@ -1,5 +1,4 @@
 // App is a general wrapper that houses all the functionality
-
 import React from 'react';
 import './App.css';
 

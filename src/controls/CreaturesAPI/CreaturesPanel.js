@@ -1,6 +1,6 @@
 // CreaturesPanel is the entrypoint for all things creatures related
 // It can also be thought of as the overarching controller element for creaturesAPI
-import React from 'react'
+import React, { useState } from 'react'
 
 // Selectors
 import OscillatorSelector from './OscillatorSelector.js'
@@ -13,24 +13,35 @@ import * as S from './MyStyle'
 
 const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
 
+    const [optionActive, setOptionActive] = useState(false)
+
     return (
         <>
             <S.CreaturesWrapper>
 
-                <CreatureFactory placementAPI={placementAPI} />
-
                 <S.CreaturesPanel>
 
                     <OscillatorSelector 
-                    selectionAPI={selectionAPI} />
+                    selectionAPI={selectionAPI} 
+                    options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
+                    />
 
                     <SpaceshipSelector 
-                    selectionAPI={selectionAPI} />
+                    selectionAPI={selectionAPI} 
+                    options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
+                    />
 
                     <TerraformSelector
-                    selectionAPI={selectionAPI} />
+                    selectionAPI={selectionAPI} 
+                    options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
+                    />
 
                 </S.CreaturesPanel>
+
+                <CreatureFactory placementAPI={placementAPI} />
                 
             </S.CreaturesWrapper>
         </>
