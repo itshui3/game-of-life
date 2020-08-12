@@ -6,7 +6,6 @@ import React, { memo } from 'react'
 import Row from './grid/Row.js'
 import './Canvas.css'
 
-// import * as S from './RyanStyle'
 import * as S from './MyStyle'
 
 const Canvas = memo(({ grid, clickCell, refsAPI }) => {

@@ -3,27 +3,22 @@ import React, { useState, useEffect } from 'react'
 // styled
 import * as S from './MyStyle'
 
-const TerraformSelector = ({selectionAPI, options}) => {
+const TerraformSelector = ({selectionAPI, placementAPI, options}) => {
 
     const {select, selected} = selectionAPI
+    const {placeSelection, placement} = placementAPI
     const {optionActive, setOptionActive} = options
     const [showTerraforms, setShowTerraforms] = useState(false)
-    const [renderSelection, setRenderSelection] = useState('')
-    
-    useEffect(() => {
-        if (selected.type === 'tf') {
-            setRenderSelection(selected.lifeform)
-        } else {
-            setRenderSelection('none')
-        }
-    }, [selected['lifeform']])
 
     const parseSelection = ev => {
+
+        toggleTerraformsDisplay()
         let newSelection = {
             type: 'tf',
-            lifeform: ev.target.value
+            lifeform: ev.target.name
         }
         select(newSelection)
+        placeSelection()
     }
 
     const toggleTerraformsDisplay = () => {
@@ -47,13 +42,17 @@ const TerraformSelector = ({selectionAPI, options}) => {
         <>
             <S.SelectorCont>
                 <S.SelectButton
-                onClick={toggleTerraformsDisplay}
+                onClick={
+                    !placement ? toggleTerraformsDisplay : null
+                }
                 >Terraform</S.SelectButton>
 
 
                 <S.TerraformsCont style={visible}>
                     <S.OptionButton
                     style={visible}
+                    name='grid_30x30'
+                    onClick={parseSelection}
                     >
                         30 x 30 Grid
                     </S.OptionButton>

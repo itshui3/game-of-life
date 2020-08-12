@@ -13,6 +13,7 @@ const CreaturesHeader = styled.h2`
     font-family: 'Cute Font', cursive;
     font-size: 80px;
     color: #FFF;
+
 `
 
 const CreaturesPanel = styled.div`

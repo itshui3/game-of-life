@@ -36,21 +36,21 @@ const usePresetCreatures = (rows, cols) => {
     // this means clicking a cell will not switchLife between [alive, dead]
     const placeSelection = useCallback(
         () => {
-            if (selected['lifeform'] !== 'none') {
-                if (progress) { console.log('cannot place creature during progression')}
-                else {
-                    switch(placement) {
-                        case false:
-                            setPlacement(true)
-                            break
-                        case true:
-                            setPlacement(false)
-                            break
-                        default:
-                            console.log('placement neither true nor false')
-                    }
+
+            if (progress) { console.log('cannot place creature during progression')}
+            else {
+                switch(placement) {
+                    case false:
+                        setPlacement(true)
+                        break
+                    case true:
+                        setPlacement(false)
+                        break
+                    default:
+                        console.log('placement neither true nor false')
                 }
             }
+            
         },
         [selected, progress, placement]
     )

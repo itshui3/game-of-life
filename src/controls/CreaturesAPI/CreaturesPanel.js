@@ -24,16 +24,19 @@ const CreaturesPanel = ({ selectionAPI, placementAPI}) => {
                     <OscillatorSelector 
                     selectionAPI={selectionAPI} 
                     options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
                     />
 
                     <SpaceshipSelector 
                     selectionAPI={selectionAPI} 
                     options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
                     />
 
                     <TerraformSelector
                     selectionAPI={selectionAPI} 
                     options={{setOptionActive, optionActive}}
+                    placementAPI={placementAPI}
                     />
 
                 </S.CreaturesPanel>

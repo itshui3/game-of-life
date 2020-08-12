@@ -42,5 +42,21 @@ export {
     OptionsCont,
     OscillatorsCont,
     SpaceshipsCont,
-    TerraformsCont
+    TerraformsCont,
+    C,
+    r,
+    e,
+    a,
+    t,
+    u,
+// r
+// e
+    F,
+// a
+    c,
+// t
+    o,
+// r
+    y
+
 }
