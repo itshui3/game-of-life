@@ -5,6 +5,7 @@ import * as S from './MyStyle'
 
 const SpaceshipSelector = ({selectionAPI, placementAPI, options}) => {
 
+
     const {select, selected} = selectionAPI
     const {placeSelection, placement} = placementAPI
     const {optionActive, setOptionActive} = options
@@ -65,14 +66,6 @@ const SpaceshipSelector = ({selectionAPI, placementAPI, options}) => {
 
                 </S.SpaceshipsCont>
 
-                {/* <select 
-                id='spaceships' 
-                onChange={parseSelection} 
-                value={renderSelection}>
-                    <option value='none'>None</option>
-                    <option value='glider'>Glider</option>
-                    <option value='lwss'>Lightweight Spaceship</option>
-                </select> */}
             </S.SelectorCont>
 
         </>

@@ -58,13 +58,6 @@ const TerraformSelector = ({selectionAPI, placementAPI, options}) => {
                     </S.OptionButton>
                 </S.TerraformsCont>
 
-                {/* <select 
-                id='terraform' 
-                onChange={parseSelection} 
-                value={renderSelection}>
-                    <option value='none'>None</option>
-                    <option value='grid_30x30'>30 x 30 Grid</option>
-                </select> */}
             </S.SelectorCont>
 
         </>

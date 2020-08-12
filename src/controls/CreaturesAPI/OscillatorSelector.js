@@ -17,6 +17,7 @@ const OscillatorSelector = ({ selectionAPI, placementAPI, options }) => {
             type: 'osc',
             lifeform: ev.target.name
         }
+        // select expects ^
         select(newSelection)
         placeSelection()
     }
@@ -37,6 +38,14 @@ const OscillatorSelector = ({ selectionAPI, placementAPI, options }) => {
         visibility: !showOscillators ? 'collapse' : 'visible',
         zIndex: !showOscillators ? 0 : 2
         
+    }
+
+    const showChoices = (ev) => {
+        setChoiceDrop(true)
+    }
+
+    const hideChoices = (ev) => {
+        setChoiceDrop(false)
     }
 
     return (
@@ -72,16 +81,6 @@ const OscillatorSelector = ({ selectionAPI, placementAPI, options }) => {
                     </S.OptionButton>
                 </S.OscillatorsCont>
 
-
-                {/* <select 
-                id = 'oscillators' 
-                onChange={parseSelection} 
-                value={renderSelection}>
-                    <option value='none'>None</option>
-                    <option value='blinker'>Blinker</option>
-                    <option value='toad'>Toad</option>
-                    <option value='beacon'>Beacon</option>
-                </select> */}
             </S.SelectorCont>
 
         </>
