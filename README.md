@@ -14,7 +14,9 @@ By building this project from spec(reading the description of how game of life o
 
 In addition to usual game of life rules, I built a population mechanic where by selecting pre-built creatures and selecting a cell, the grid will traverse and populate that creature. 
 
-I also practiced CSS(my weakness, aaa!) and built custom select drop-up divs as well as playing around with coloring cells by mathmatically generating colors depending on cell position. 
+Also practiced CSS(my weakness, aaa!) and built custom select drop-up divs as well as playing around with coloring cells by mathmatically generating colors depending on cell position. 
+
+This was the first project where I strayed from the comfort of using redux to manage state. Instead I built a system of custom hooks that consume and depend on one another and organized an api that only exposes the exact methods and properties a component requires. I package these dependencies into objects so that components that have them drilled through don't need to 'unpack' them or worry about their details. This allowed me to manage a grid, grid mechanics, creature mechanics, while keeping things readable for myself. I had to re-factor code whenever the mechanics got complicated and found it instrumental to manipulating a grid and not overwhelming myself. 
 
 <h2>Technologies Used</h2>
 <ins>Client:</ins> <br />
