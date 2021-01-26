@@ -18,6 +18,8 @@ Also practiced CSS(my weakness, aaa!) and built custom select drop-up divs as we
 
 This was the first project where I strayed from the comfort of using redux to manage state. Instead I built a system of custom hooks that consume and depend on one another and organized an api that only exposes the exact methods and properties a component requires. I package these dependencies into objects so that components that have them drilled through don't need to 'unpack' them or worry about their details. This allowed me to manage a grid, grid mechanics, creature mechanics, while keeping things readable for myself. I had to re-factor code whenever the mechanics got complicated and found it instrumental to manipulating a grid and not overwhelming myself. 
 
+Another interesting lesson I learned from this project was that performing incremental updates in react with either setTimeout or setInterval creates this issue where attempting to close state will retrieve a stale state. So it never really updates. To solve this, we use setState's provided state argument which then retrieves up-to-date state to perform our side-effects with. 
+
 <h2>Technologies Used</h2>
 <ins>Client:</ins> <br />
 "react": "^16.13.1",<br/>
